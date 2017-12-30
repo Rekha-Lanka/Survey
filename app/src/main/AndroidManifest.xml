@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.delhijal.survey">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/jalsurvey"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".MainSurveyActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".SplashscreenActivity"
+            android:theme="@style/Theme.Design.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".SigninActivity"
+            android:label="@string/title_activity_signin" />
+        <activity android:name=".VerifyOTPActivity" />
+        <activity android:name=".NewSurvey.PersonDetailsActivity" />
+        <activity android:name=".NewSurvey.OwnerDetailsActivity" />
+        <activity android:name=".NewSurvey.ConnectionDetailsActivity" />
+        <activity android:name=".NewSurvey.SubmitDetailsActivity" />
+        <activity android:name=".NewSurvey.PropertyDetailsActivity"></activity>
+    </application>
+
+</manifest>

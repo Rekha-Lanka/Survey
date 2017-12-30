@@ -1,0 +1,45 @@
+<resources>
+    <string name="app_name">Survey</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="title_activity_splashscreen">SplashscreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="title_activity_signin">Login</string>
+
+    <string-array name="spinner_item">
+        <item>Data provided by - Tap Here</item>
+        <item>Owner</item>
+        <item>Tenent</item>
+        <item>Employee</item>
+        <item>Neighbour</item>
+    </string-array>
+    <string-array name="owner_resides">
+        <item>Choose- Tap Here</item>
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+    <string-array name="property_details">
+    <item>Nature of property - Tap Here</item>
+    <item>DDA Flat</item>
+    <item>Flat in a plot</item>
+    <item>Commercial Complex</item>
+    <item>Plot</item>
+</string-array>
+    <string-array name="source_of_water">
+        <item>Choose - Tap Here</item>
+        <item>DJB Connection</item>
+        <item>Ground Water</item>
+        <item>Both</item>
+        <item>NIL</item>
+    </string-array>
+    <string-array name="djb_status">
+        <item>Choose - Tap Here</item>
+        <item>Active</item>
+        <item>Cut-off</item>
+    </string-array>
+</resources>
