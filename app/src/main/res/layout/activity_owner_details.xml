@@ -15,7 +15,7 @@
             android:gravity="center"
             android:textColor="#000"
             android:textStyle="bold"
-            android:textSize="20dp"
+            android:textSize="18dp"
             android:layout_marginTop="20dp"
             android:text="Owner Details"/>
         <TextView
@@ -24,7 +24,7 @@
             android:gravity="center"
             android:textColor="#000"
             android:textStyle="bold"
-            android:textSize="18dp"
+            android:textSize="16dp"
             android:layout_marginTop="20dp"
             android:text="Owner Resides at same property"/>
         <Spinner
