@@ -23,6 +23,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.delhijal.survey.MainSurveyActivity;
 import com.delhijal.survey.R;
@@ -44,6 +45,7 @@ public class SubmitDetailsActivity extends AppCompatActivity {
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
     SharedPreferences shre;
     int flag=0;
+    LinearLayout imagell;
     public static final String  key = "nameKey";
     public static final String MyPREFERENCES = "MyPre" ;//file name
 
@@ -55,6 +57,8 @@ public class SubmitDetailsActivity extends AppCompatActivity {
         submit=(Button)findViewById(R.id.submit);
         nameplatepreview=(ImageView)findViewById(R.id.nameplatepreview);
         nameplatebtn=(Button)findViewById(R.id.nameplatebtn);
+        imagell=(LinearLayout)findViewById(R.id.imagegalleryll);
+
         meterbtn=(Button)findViewById(R.id.meterbtn);
         meterpreview=(ImageView)findViewById(R.id.meterpreview);
         sprevious.setOnClickListener(new View.OnClickListener() {
@@ -70,11 +74,14 @@ public class SubmitDetailsActivity extends AppCompatActivity {
             public void onClick(View v) {
 //                Intent i=new Intent(SubmitDetailsActivity.this,OwnerDetailsActivity.class);
 //                startActivity(i);
+                imagell.setVisibility(View.GONE);
+
             }
         });
         nameplatebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                imagell.setVisibility(View.VISIBLE);
                 flag=0;
                 selectImage();
             }
@@ -82,6 +89,7 @@ public class SubmitDetailsActivity extends AppCompatActivity {
         meterbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                imagell.setVisibility(View.VISIBLE);
                 flag=1;
                 selectImage();
             }

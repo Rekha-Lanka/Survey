@@ -23,6 +23,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.delhijal.survey.MainSurveyActivity;
@@ -43,6 +44,7 @@ public class PersonDetailsActivity extends AppCompatActivity {
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
     SharedPreferences shre;
     Button next,previous,browse;
+    LinearLayout imagegalleryll;
     public static final String  key = "nameKey";
     public static final String MyPREFERENCES = "MyPre" ;//file name
 
@@ -52,6 +54,7 @@ public class PersonDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_person_details);
       next=(Button)findViewById(R.id.mainnext);
     previous=(Button)findViewById(R.id.mainprevious);
+    imagegalleryll=(LinearLayout)findViewById(R.id.picll);
          browse=(Button)findViewById(R.id.browse);
         propertypic=(ImageView)findViewById(R.id.propertypreview);
         next.setOnClickListener(new View.OnClickListener() {
@@ -71,6 +74,7 @@ public class PersonDetailsActivity extends AppCompatActivity {
         browse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                imagegalleryll.setVisibility(View.VISIBLE);
               selectImage();
             }
         });
