@@ -43,6 +43,7 @@ public class SubmitDetailsActivity extends AppCompatActivity {
     Button  nameplatebtn,meterbtn;
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
     SharedPreferences shre;
+    int flag=0;
     public static final String  key = "nameKey";
     public static final String MyPREFERENCES = "MyPre" ;//file name
 
@@ -74,12 +75,14 @@ public class SubmitDetailsActivity extends AppCompatActivity {
         nameplatebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                flag=0;
                 selectImage();
             }
         });
         meterbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                flag=1;
                 selectImage();
             }
         });
@@ -223,7 +226,7 @@ public class SubmitDetailsActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                     storeImage(bm);
-                    if(nameplatepreview.isClickable()) {
+                    if(flag==0) {
                         nameplatepreview.setImageBitmap(bm);
                     }
                     else{
@@ -237,7 +240,7 @@ public class SubmitDetailsActivity extends AppCompatActivity {
                 //onCaptureImageResult(data);
                 Bitmap bm = (Bitmap) data.getExtras().get("data");
                 storeImage(bm);
-                if(nameplatepreview.isClickable()){
+                if(flag==0){
                     nameplatepreview.setImageBitmap(bm);
                 }
                 else{
