@@ -12,6 +12,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
             android:orientation="vertical">
             <TextView
                 android:layout_width="match_parent"
@@ -109,7 +110,7 @@
                 android:paddingLeft="10dp"
                 android:text="Meter Details"
                 android:textColor="#000"
-                android:textSize="16dp"
+                android:textSize="15dp"
                 android:textStyle="bold" />
             <LinearLayout
                 android:layout_width="match_parent"
@@ -121,7 +122,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="10dp">
 
                 <EditText
                     android:id="@+id/editMeterno"
@@ -142,7 +143,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="10dp">
 
                 <EditText
                     android:id="@+id/editMetermake"
@@ -163,7 +164,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="10dp">
 
                 <EditText
                     android:id="@+id/editMeterreading"
@@ -185,7 +186,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="10dp">
 
                 <EditText
                     android:id="@+id/editConncount"
@@ -209,13 +210,13 @@
                 android:paddingLeft="10dp"
                 android:text="Borewells"
                 android:textColor="#000"
-                android:textSize="16dp"
+                android:textSize="15dp"
                 android:textStyle="bold" />
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/input_borewells"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="10dp">
 
                 <EditText
                     android:id="@+id/editborewells"
@@ -239,7 +240,7 @@
                 android:paddingLeft="10dp"
                 android:text="Additional Sewerage Charge Paid?"
                 android:textColor="#000"
-                android:textSize="18dp"
+                android:textSize="15dp"
                 android:textStyle="bold" />
             <Spinner
                 android:id="@+id/spinnerpaidornot"
@@ -249,30 +250,46 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="10dp"
                 android:entries="@array/owner_resides" />
-            <LinearLayout
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:weightSum="3"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="50dp"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/cprevious"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="horizontal">
-                <Button
-                    android:id="@+id/cprevious"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
-                    android:background="#128807"
-                    android:textColor="#fff"
-                    android:text="Previous"
-                    android:layout_gravity="center"/>
-                <Button
-                    android:id="@+id/cnext"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
-                    android:background="#0f43d2"
-                    android:textColor="#fff"
-                    android:text="next"
-                    android:layout_gravity="center"/>
-            </LinearLayout>
+                android:background="@drawable/previousbtnbg"
+                android:textColor="#fff"
+                android:layout_weight="1"
+                android:text="Previous"
+                android:layout_gravity="center"/>
+            <Button
+                android:id="@+id/csubmit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/submitbtnbg"
+                android:textColor="#fff"
+                android:text="Submit"
+                android:layout_weight="1"
+                android:layout_gravity="center"/>
+            <Button
+                android:id="@+id/cnext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/nextbtnbg"
+                android:textColor="#fff"
+                android:text="next"
+                android:layout_weight="1"
+                android:layout_gravity="center"/>
+        </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </android.support.constraint.ConstraintLayout>

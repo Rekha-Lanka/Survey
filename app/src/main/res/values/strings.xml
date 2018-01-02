@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Survey</string>
+    <string name="app_name">Jal Survey</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -9,7 +9,7 @@
     <string name="title_activity_splashscreen">SplashscreenActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
-    <string name="title_activity_signin">Login</string>
+    <string name="title_activity_signin">Jal Survey</string>
 
     <string-array name="spinner_item">
         <item>Data provided by - Tap Here</item>
@@ -24,12 +24,12 @@
         <item>No</item>
     </string-array>
     <string-array name="property_details">
-    <item>Nature of property - Tap Here</item>
-    <item>DDA Flat</item>
-    <item>Flat in a plot</item>
-    <item>Commercial Complex</item>
-    <item>Plot</item>
-</string-array>
+        <item>Nature of property - Tap Here</item>
+        <item>DDA Flat</item>
+        <item>Flat in a plot</item>
+        <item>Commercial Complex</item>
+        <item>Plot</item>
+    </string-array>
     <string-array name="source_of_water">
         <item>Choose - Tap Here</item>
         <item>DJB Connection</item>
@@ -42,4 +42,5 @@
         <item>Active</item>
         <item>Cut-off</item>
     </string-array>
+    <string name="title_activity_about_us">Jal Survey</string>
 </resources>

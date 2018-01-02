@@ -53,7 +53,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_marginTop="20dp">
+                    android:layout_marginTop="10dp">
 
                     <EditText
                         android:id="@+id/editkitchens"
@@ -74,7 +74,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_marginTop="20dp">
+                    android:layout_marginTop="10dp">
 
                     <EditText
                         android:id="@+id/editwashrooms"
@@ -125,23 +125,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:weightSum="3"
+                android:weightSum="2"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:orientation="horizontal">
+
                 <Button
-                    android:id="@+id/propertybtn"
+                    android:id="@+id/nameplatebtn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#48c1df"
-                    android:textColor="#fff"
-                    android:layout_weight="1"
-                    android:text="Property" />
-                <Button
-                    android:id="@+id/nameplatentn"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
                     android:layout_weight="1"
                     android:background="@color/colorAccent"
                     android:textColor="#fff"
@@ -158,6 +151,36 @@
                     android:text="Meter" />
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/imagegalleryll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:weightSum="2"
+                android:layout_gravity="center"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/nameplatepreview"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:background="@color/colorAccent"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:layout_marginRight="5dp"
+                    android:padding="10dp"
+                    android:textColor="#fff" />
+                <ImageView
+                    android:id="@+id/meterpreview"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:background="#0f43d2"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="5dp"
+                    android:padding="10dp"
+                    android:textColor="#fff" />
+            </LinearLayout>
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -168,7 +191,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="20dp"
-                    android:background="#128807"
+                    android:background="@drawable/previousbtnbg"
                     android:textColor="#fff"
                     android:text="Previous"
                     android:layout_gravity="center"/>
@@ -177,7 +200,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="20dp"
-                    android:background="#FF9A30"
+                    android:background="@drawable/submitbtnbg"
                     android:textColor="#fff"
                     android:text="submit"
                     android:layout_gravity="center"/>

@@ -81,10 +81,10 @@ public class MainSurveyActivity extends AppCompatActivity
 //    @Override
 //    public boolean onCreateOptionsMenu(Menu menu) {
 //        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.main_survey, menu);
+//        getMenuInflater().inflate(R.menu.home_menu, menu);
 //        return true;
 //    }
-
+//
 //    @Override
 //    public boolean onOptionsItemSelected(MenuItem item) {
 //        // Handle action bar item clicks here. The action bar will
@@ -93,10 +93,12 @@ public class MainSurveyActivity extends AppCompatActivity
 //        int id = item.getItemId();
 //
 //        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
+//        if (id == R.id.action_home) {
+//            Intent i=new Intent(this,MainSurveyActivity.class);
+//            startActivity(i);
 //            return true;
 //        }
-
+//
 //        return super.onOptionsItemSelected(item);
 //    }
 

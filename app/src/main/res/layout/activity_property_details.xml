@@ -19,7 +19,7 @@
             android:gravity="center"
             android:textColor="#000"
             android:textStyle="bold"
-            android:textSize="18dp"
+            android:textSize="16dp"
             android:layout_marginTop="18dp"
             android:text="Property Details"/>
 
@@ -35,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#000"
-            android:textSize="16dp"
+            android:textSize="15dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
             android:textStyle="bold"
@@ -46,7 +46,7 @@
             android:id="@+id/input_layout_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="15dp">
 
             <EditText
                 android:id="@+id/edithno"
@@ -66,7 +66,7 @@
             android:id="@+id/input_layout_fathername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="15dp">
 
             <EditText
                 android:id="@+id/editFloorno"
@@ -86,7 +86,7 @@
             android:id="@+id/input_layout_mobileno"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="15dp">
 
             <EditText
                 android:id="@+id/editpname"
@@ -106,7 +106,7 @@
             android:id="@+id/input_layout_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="15dp">
 
             <EditText
                 android:id="@+id/editstreetname"
@@ -126,7 +126,7 @@
             android:id="@+id/input_layout_area"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="15dp">
 
             <EditText
                 android:id="@+id/editarea"
@@ -146,7 +146,7 @@
             android:id="@+id/input_layout_landmark"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="15dp">
 
             <EditText
                 android:id="@+id/editlandmark"
@@ -166,7 +166,7 @@
             android:id="@+id/input_layout_pincode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="15dp">
 
             <EditText
                 android:id="@+id/editspincode"
@@ -192,25 +192,41 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:weightSum="3"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="50dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_gravity="center"
             android:orientation="horizontal">
             <Button
                 android:id="@+id/pprevious"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:background="#128807"
+                android:background="@drawable/previousbtnbg"
                 android:textColor="#fff"
+                android:layout_weight="1"
                 android:text="Previous"
+                android:layout_gravity="center"/>
+            <Button
+                android:id="@+id/psubmit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/submitbtnbg"
+                android:textColor="#fff"
+                android:text="Submit"
+                android:layout_weight="1"
                 android:layout_gravity="center"/>
             <Button
                 android:id="@+id/pnext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:background="#0f43d2"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/nextbtnbg"
                 android:textColor="#fff"
                 android:text="next"
+                android:layout_weight="1"
                 android:layout_gravity="center"/>
         </LinearLayout>
     </LinearLayout>

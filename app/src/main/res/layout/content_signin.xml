@@ -20,7 +20,7 @@ tools:showIn="@layout/activity_signin">
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:background="@drawable/jalsurvey"/>
+            android:background="@drawable/jalsurveytransparent"/>
 
     </LinearLayout>
     <LinearLayout

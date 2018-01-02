@@ -32,16 +32,23 @@
                    android:layout_marginTop="10dp"
                    android:layout_marginLeft="10dp"
                    android:layout_marginRight="5dp"
+                   android:gravity="center"
                    android:background="@color/colorAccent"
-                   android:orientation="horizontal">
+                   android:orientation="vertical">
                    <TextView
-                       android:layout_width="match_parent"
-                       android:layout_height="match_parent"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
                        android:textSize="20dp"
                        android:textStyle="bold|italic"
                        android:textColor="#fff"
-                       android:gravity="center"
+                       android:layout_gravity="center"
                        android:text="New Survey"/>
+                   <ImageView
+                       android:layout_width="40dp"
+                       android:layout_height="40dp"
+                       android:layout_gravity="center"
+                       android:layout_marginTop="10dp"
+                       android:background="@drawable/adddocuments" />
 
                </LinearLayout>
                <LinearLayout
@@ -52,16 +59,23 @@
                    android:layout_marginTop="10dp"
                    android:layout_marginLeft="5dp"
                    android:layout_marginRight="10dp"
+                   android:gravity="center"
                    android:background="@color/black_overlay"
-                   android:orientation="horizontal">
+                   android:orientation="vertical">
                    <TextView
-                       android:layout_width="match_parent"
-                       android:layout_height="match_parent"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
                        android:textSize="20dp"
                        android:textStyle="bold|italic"
                        android:textColor="#fff"
                        android:gravity="center"
                        android:text="Update Survey"/>
+                   <ImageView
+                       android:layout_width="40dp"
+                       android:layout_height="40dp"
+                       android:layout_gravity="center"
+                       android:layout_marginTop="10dp"
+                       android:background="@drawable/update" />
                </LinearLayout>
 
            </LinearLayout>
@@ -75,15 +89,27 @@
            android:layout_weight="1"
            android:background="@color/colorPrimary"
            android:orientation="vertical">
-           <TextView
+           <LinearLayout
                android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:gravity="center"
+               android:orientation="horizontal">
+               <ImageView
+                   android:layout_width="40dp"
+                   android:layout_height="40dp"
+                   android:layout_gravity="center"
+                   android:layout_marginTop="10dp"
+                   android:background="@drawable/taskcomplete" />
+           <TextView
+               android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:textSize="20dp"
                android:textStyle="bold|italic"
                android:layout_margin="20dp"
                android:textColor="#fff"
-               android:gravity="center"
                android:text="Completed Survey"/>
+
+           </LinearLayout>
            <TextView
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
