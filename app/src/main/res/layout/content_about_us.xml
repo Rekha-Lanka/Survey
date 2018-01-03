@@ -7,11 +7,47 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.delhijal.survey.AboutUs"
     tools:showIn="@layout/activity_about_us">
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:textSize="30dp"
-        android:text="Welcome"/>
+        android:fitsSystemWindows="true">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="13dp"
+            android:text="      Groundwater survey will benefit home owners whose borewells have gone dry or flow has decreased, land owners who need a borewell site located for new construction, infrastructure developers building outside of city water service areas, property owners wishing to provide a borewell location guarantee to buyers, farmers who need irrigation borewells, utility companies exploring new borewell sites and water development strategies, geophysical survey can be conducted for engineering firms planning or aiding in new construction or development, and anyone that desires professional insight into their borewell water needs or borewell problems before drilling. "/>
+        <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+        android:textSize="13dp"
+        android:text="      In-water survey (referred to by various classification societies as IWS, BIS, etc.) is a method of surveying the underwater parts of a ship while it is still afloat instead of having to dry-dock it for examination of these areas as was conventionally done."/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:textSize="13dp"
+        android:text="      For cargo ships, two surveys are required within a period of five years. One of these can be an in-water survey, provided the ship is eligible for it."/>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:textSize="13dp"
+        android:text="      The ship (tanker or bulk carrier) should not be more than 15 years old."/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+       android:layout_marginTop="15dp"
+        android:textSize="13dp"
+        android:text="      The bottom of the ship should not be painted black before carrying out the survey."/>
+    </LinearLayout>
+    </ScrollView>
 </android.support.constraint.ConstraintLayout>

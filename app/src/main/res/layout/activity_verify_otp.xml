@@ -74,7 +74,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
             android:layout_gravity="center"
-            android:text="Verify OTP"
+            android:text="Continue"
             android:textColor="#fff"
             android:textStyle="bold"
             android:background="@drawable/custombutton"/>

@@ -109,10 +109,16 @@ public class MainSurveyActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_aboutus) {
+            Intent i=new Intent(MainSurveyActivity.this,AboutUs.class);
+            startActivity(i);
             // Handle the camera action
         } else if (id == R.id.nav_dashboard) {
+            Intent i=new Intent(MainSurveyActivity.this,MainSurveyActivity.class);
+            startActivity(i);
 
         } else if (id == R.id.nav_logout) {
+            Intent i=new Intent(MainSurveyActivity.this,SigninActivity.class);
+            startActivity(i);
 
         }
 
