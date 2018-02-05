@@ -57,6 +57,9 @@ public class PersonDetailsActivity extends AppCompatActivity {
     imagegalleryll=(LinearLayout)findViewById(R.id.picll);
          browse=(Button)findViewById(R.id.browse);
         propertypic=(ImageView)findViewById(R.id.propertypreview);
+
+
+
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

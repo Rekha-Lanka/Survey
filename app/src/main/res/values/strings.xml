@@ -29,6 +29,15 @@
         <item>Flat in a plot</item>
         <item>Commercial Complex</item>
         <item>Plot</item>
+        <item>Shop</item>
+    </string-array>
+    <string-array name="business_details">
+        <item>Nature of business - Tap Here</item>
+        <item>DDA Flat</item>
+        <item>Flat in a plot</item>
+        <item>Commercial Complex</item>
+        <item>Plot</item>
+        <item>Shop</item>
     </string-array>
     <string-array name="source_of_water">
         <item>Choose - Tap Here</item>

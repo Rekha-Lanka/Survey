@@ -31,6 +31,14 @@
             android:layout_marginRight="20dp"
             android:layout_marginTop="20dp"
             android:entries="@array/property_details" />
+        <Spinner
+            android:id="@+id/businessspinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:entries="@array/business_details" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -40,8 +48,15 @@
             android:layout_marginTop="20dp"
             android:textStyle="bold"
             android:paddingLeft="10dp"
-            android:text="Address :"/>
-
+            android:text="Address as per Records:"/>
+        <Spinner
+            android:id="@+id/addrassame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:entries="@array/owner_resides" />
         <android.support.design.widget.TextInputLayout
             android:id="@+id/input_layout_username"
             android:layout_width="match_parent"
