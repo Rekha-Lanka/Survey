@@ -1,6 +1,7 @@
 package com.delhijal.survey;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,13 +14,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.delhijal.survey.NewSurvey.PersonDetailsActivity;
 
 public class MainSurveyActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     LinearLayout newll,updatell,cmpltll;
+    SharedPreferences pref;
+    TextView uname,mobileno;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +39,17 @@ public class MainSurveyActivity extends AppCompatActivity
         toggle.syncState();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View header  = navigationView.getHeaderView(0);
+        uname = (TextView) header.findViewById(R.id.uname);
+        mobileno = (TextView) header.findViewById(R.id.mno);
         newll=(LinearLayout)findViewById(R.id.newsurveyll);
         updatell=(LinearLayout)findViewById(R.id.updatesurveyll);
         cmpltll=(LinearLayout)findViewById(R.id.cmpltsurveyll);
+        pref = getSharedPreferences("userdetails",MODE_PRIVATE);
+        String loginuname = pref.getString("username",null);
+        String loginmobileno = pref.getString("mobileno",null);
+        uname.setText(loginuname);
+        mobileno.setText(loginmobileno);
         newll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
