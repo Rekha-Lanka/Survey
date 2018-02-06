@@ -22,6 +22,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -37,6 +38,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class PersonDetailsActivity extends AppCompatActivity {
     private String userChoosenTask;
@@ -45,13 +48,22 @@ public class PersonDetailsActivity extends AppCompatActivity {
     SharedPreferences shre;
     Button next,previous,browse;
     LinearLayout imagegalleryll;
+    EditText ename,efname,emobile,eemail;
+    String puname,pfname,pmobile,pemail;
+    boolean is_mob_number = false;
     public static final String  key = "nameKey";
+    String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     public static final String MyPREFERENCES = "MyPre" ;//file name
+    SharedPreferences personpref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_person_details);
+        ename=(EditText)findViewById(R.id.editname);
+        efname=(EditText)findViewById(R.id.editfathername);
+        emobile=(EditText)findViewById(R.id.editmobileno);
+        eemail=(EditText)findViewById(R.id.editemail);
       next=(Button)findViewById(R.id.mainnext);
     previous=(Button)findViewById(R.id.mainprevious);
     imagegalleryll=(LinearLayout)findViewById(R.id.picll);
@@ -59,12 +71,39 @@ public class PersonDetailsActivity extends AppCompatActivity {
         propertypic=(ImageView)findViewById(R.id.propertypreview);
 
 
-
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i=new Intent(PersonDetailsActivity.this,OwnerDetailsActivity.class);
-                startActivity(i);
+                puname=ename.getText().toString();
+                pfname=efname.getText().toString();
+                pmobile=emobile.getText().toString();
+                pemail=eemail.getText().toString();
+                if(puname.equals("")||puname.length()<3){
+                    ename.setError("Enter min 3 chars username");
+                    ename.setFocusable(true);
+                }else if(pfname.equals("")||pfname.length()<3){
+                    efname.setError("Enter min 3 chars username");
+                    efname.setFocusable(true);
+                }else if(pmobile.equals("")|| !ismobileno()) {
+                    emobile.setError("Enter valid Mobile no");
+                    emobile.setFocusable(true);
+                }else if(pemail.equals("")|| !pemail.matches(emailPattern)){
+                    eemail.setError("Enter valid email");
+                    eemail.setFocusable(true);
+                }else {
+                    personpref = getSharedPreferences("persondetails", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = personpref.edit();
+//                    String pusername = ename.getText().toString();
+//                    String pfathername=
+//                    String pno = emobile.getText().toString();
+                    editor.putString("personname", puname);
+                    editor.putString("pfathername",pfname);
+                    editor.putString("mobilenumber",pmobile);
+                    editor.putString("personemail",pemail);
+                    editor.commit();
+                    Intent i=new Intent(PersonDetailsActivity.this,OwnerDetailsActivity.class);
+                    startActivity(i);
+                }
             }
         });
         previous.setOnClickListener(new View.OnClickListener() {
@@ -82,6 +121,16 @@ public class PersonDetailsActivity extends AppCompatActivity {
             }
         });
 
+    }
+    public boolean ismobileno() {
+
+// mobile number should be 10 digit
+        Pattern pattern = Pattern.compile("\\d{10}");
+        Matcher matchr = pattern.matcher(pmobile.trim());
+        if (matchr.matches()) {
+            is_mob_number = true;
+        }
+        return is_mob_number;
     }
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {

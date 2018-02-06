@@ -43,7 +43,7 @@ public class SigninActivity extends AppCompatActivity {
                     etuname.setFocusable(true);
 
                 }else if(mobileno.equals("")|| !ismobileno()) {
-                    etmobileno.setError("Enter valid Password");
+                    etmobileno.setError("Enter valid Mobile no");
                     etmobileno.setFocusable(true);
 
                 }
@@ -62,7 +62,6 @@ else {
             }
         });
 
-
     }
 
     public boolean ismobileno() {
@@ -75,6 +74,13 @@ else {
         }
         return is_mob_number;
     }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
 
+    }
 
 }

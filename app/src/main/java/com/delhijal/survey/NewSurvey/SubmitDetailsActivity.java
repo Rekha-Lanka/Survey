@@ -58,7 +58,6 @@ public class SubmitDetailsActivity extends AppCompatActivity {
         nameplatepreview=(ImageView)findViewById(R.id.nameplatepreview);
         nameplatebtn=(Button)findViewById(R.id.nameplatebtn);
         imagell=(LinearLayout)findViewById(R.id.imagegalleryll);
-
         meterbtn=(Button)findViewById(R.id.meterbtn);
         meterpreview=(ImageView)findViewById(R.id.meterpreview);
         sprevious.setOnClickListener(new View.OnClickListener() {

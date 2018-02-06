@@ -25,7 +25,7 @@ public class SplashscreenActivity extends AppCompatActivity {
             @Override
             public void run() {
 
-                startActivity(new Intent(SplashscreenActivity.this, SigninActivity.class));
+                startActivity(new Intent(SplashscreenActivity.this, MainSurveyActivity.class));
                 finish();
 
             }

@@ -48,6 +48,10 @@ public class MainSurveyActivity extends AppCompatActivity
         pref = getSharedPreferences("userdetails",MODE_PRIVATE);
         String loginuname = pref.getString("username",null);
         String loginmobileno = pref.getString("mobileno",null);
+        if(loginuname==""||loginuname==null){
+            Intent i=new Intent(this,SigninActivity.class);
+            startActivity(i);
+        }
         uname.setText(loginuname);
         mobileno.setText(loginmobileno);
         newll.setOnClickListener(new View.OnClickListener() {
@@ -126,11 +130,12 @@ public class MainSurveyActivity extends AppCompatActivity
             startActivity(i);
             // Handle the camera action
         } else if (id == R.id.nav_dashboard) {
-            Intent i=new Intent(MainSurveyActivity.this,MainSurveyActivity.class);
-            startActivity(i);
 
         } else if (id == R.id.nav_logout) {
+//            Intent intent = new Intent(getApplicationContext(), MainMapActivity.class);
+//            startActivity(intent);
             Intent i=new Intent(MainSurveyActivity.this,SigninActivity.class);
+            getApplicationContext().getSharedPreferences("userdetails", 0).edit().clear().commit();
             startActivity(i);
 
         }

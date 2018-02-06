@@ -28,7 +28,7 @@
             android:layout_marginTop="20dp"
             android:text="Owner Resides at same property"/>
         <Spinner
-            android:id="@+id/signupspinner"
+            android:id="@+id/ownerspinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -89,7 +89,8 @@
                 android:layout_marginRight="20dp"
                 android:ems="10"
                 android:hint="Owner Mobile Number"
-                android:inputType="text"
+                android:inputType="number"
+                android:maxLength="10"
                 android:padding="10dp"
                 android:singleLine="true"
                 android:textColor="#000"
