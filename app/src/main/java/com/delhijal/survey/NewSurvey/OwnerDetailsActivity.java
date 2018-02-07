@@ -57,6 +57,14 @@ boolean is_mob_number=false;
                     etomobileno.setText(ownermno);
                     etoemail.setText(owneremail);
                 }
+                if(position==2){
+                    // parent.getItemAtPosition(pos)
+                    etoname.setText("");
+                    etofname.setText("");
+                    etomobileno.setText("");
+                    etoemail.setText("");
+                }
+
 
             }
 
@@ -84,20 +92,14 @@ boolean is_mob_number=false;
                }else if(oemail.equals("")|| !oemail.matches(emailPattern)) {
                    etoemail.setError("Enter valid email");
                    etoemail.setFocusable(true);
-               }else if(spinnerDetails.getSelectedItem().toString().trim().equalsIgnoreCase("choose- Tap Here")){
-                       TextView errorText = (TextView)spinnerDetails.getSelectedView();
-                       errorText.setError("select catogery");
-                       errorText.setTextColor(Color.RED);//just to highlight that this is an error
-                       // errorText.setText("select catogery");//changes the selected item text to this
                }
-//               }else if(spinnerDetails.getSelectedItem().toString().trim().equalsIgnoreCase("choose- Tap Here")){
-//                   TextView errorText = (TextView)spinnerDetails.getSelectedView();
-//                   errorText.setError("");
-//                   errorText.setTextColor(Color.RED);//just to highlight that this is an error
-//                   errorText.setText("select catogery");//changes the selected item text to this
-//
+//               else if(spinnerDetails.getSelectedItem().toString().trim().equalsIgnoreCase("choose- Tap Here")){
+//                       TextView errorText = (TextView)spinnerDetails.getSelectedView();
+//                       errorText.setError("select catogery");
+//                       errorText.setTextColor(Color.RED);//just to highlight that this is an error
+//                       //errorText.setText("select catogery");//changes the selected item text to this
 //               }
-               //if(spinnerDetails.getSelectedItem().toString().trim().equalsIgnoreCase("yes"))
+
                   else {
 
                    Intent i=new Intent(OwnerDetailsActivity.this,PropertyDetailsActivity.class);

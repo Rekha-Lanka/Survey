@@ -2,6 +2,7 @@ package com.delhijal.survey.NewSurvey;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,6 +10,9 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
@@ -25,18 +29,29 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.delhijal.survey.MainSurveyActivity;
 import com.delhijal.survey.R;
+import com.delhijal.survey.RequestHandler;
 import com.delhijal.survey.Utils.CameraUtility;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.HashMap;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -46,15 +61,29 @@ public class PersonDetailsActivity extends AppCompatActivity {
     ImageView propertypic;
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
     SharedPreferences shre;
-    Button next,previous,browse;
+    Button next,previous,browse,save;
     LinearLayout imagegalleryll;
+    private Uri filePath;
     EditText ename,efname,emobile,eemail;
-    String puname,pfname,pmobile,pemail;
+    String puname,pfname,pmobile,pemail,pcatogery,upload;
+    TextView resulttv;
     boolean is_mob_number = false;
+    Spinner spinnerDetails;
     public static final String  key = "nameKey";
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+
+    public static final String PROVIDEBY_KEY = "provideby";
+    public static final String NAME_KEY = "name";
+    public static final String FATHERNAME_KEY = "father";
+    public static final String MOBILE_KEY = "mobile";
+    public static final String EMAIL_KEY = "email";
+    public static final String UPLOAD_KEY = "propertyimg";
+    RequestHandler rh = new RequestHandler();
+
     public static final String MyPREFERENCES = "MyPre" ;//file name
     SharedPreferences personpref;
+    public static final String UPLOAD_URL = "http://www.globalm.co.in/survey/insertsurvey.php";
+    Bitmap bm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,19 +94,25 @@ public class PersonDetailsActivity extends AppCompatActivity {
         emobile=(EditText)findViewById(R.id.editmobileno);
         eemail=(EditText)findViewById(R.id.editemail);
       next=(Button)findViewById(R.id.mainnext);
+      save=(Button)findViewById(R.id.mainsave);
     previous=(Button)findViewById(R.id.mainprevious);
+        spinnerDetails=(Spinner)findViewById(R.id.signupspinner);
+
     imagegalleryll=(LinearLayout)findViewById(R.id.picll);
          browse=(Button)findViewById(R.id.browse);
         propertypic=(ImageView)findViewById(R.id.propertypreview);
+
+        pcatogery = spinnerDetails.getSelectedItem().toString();
+        puname=ename.getText().toString();
+        pfname=efname.getText().toString();
+        pmobile=emobile.getText().toString();
+        pemail=eemail.getText().toString();
 
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                puname=ename.getText().toString();
-                pfname=efname.getText().toString();
-                pmobile=emobile.getText().toString();
-                pemail=eemail.getText().toString();
+
                 if(puname.equals("")||puname.length()<3){
                     ename.setError("Enter min 3 chars username");
                     ename.setFocusable(true);
@@ -90,6 +125,11 @@ public class PersonDetailsActivity extends AppCompatActivity {
                 }else if(pemail.equals("")|| !pemail.matches(emailPattern)){
                     eemail.setError("Enter valid email");
                     eemail.setFocusable(true);
+                } else if(spinnerDetails.getSelectedItem().toString().trim().equalsIgnoreCase("Data provided by- Tap Here")){
+                    TextView errorText = (TextView)spinnerDetails.getSelectedView();
+                    errorText.setError("select catogery");
+                    errorText.setTextColor(Color.RED);//just to highlight that this is an error
+                    //errorText.setText("select catogery");//changes the selected item text to this
                 }else {
                     personpref = getSharedPreferences("persondetails", MODE_PRIVATE);
                     SharedPreferences.Editor editor = personpref.edit();
@@ -104,6 +144,12 @@ public class PersonDetailsActivity extends AppCompatActivity {
                     Intent i=new Intent(PersonDetailsActivity.this,OwnerDetailsActivity.class);
                     startActivity(i);
                 }
+            }
+        });
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                upload();
             }
         });
         previous.setOnClickListener(new View.OnClickListener() {
@@ -238,14 +284,15 @@ public class PersonDetailsActivity extends AppCompatActivity {
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == SELECT_FILE){
                 //onSelectFromGalleryResult(data);
-                Bitmap bm=null;
+              bm=null;
                 if (data != null) {
                     try {
-                        bm = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), data.getData());
+                        filePath = data.getData();
+                        bm = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), filePath);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    storeImage(bm);
+                    //storeImage(bm);
                     propertypic.setImageBitmap(bm);
 
                 }
@@ -254,76 +301,76 @@ public class PersonDetailsActivity extends AppCompatActivity {
             else if (requestCode == REQUEST_CAMERA) {
                 //onCaptureImageResult(data);
                 Bitmap bm = (Bitmap) data.getExtras().get("data");
-                storeImage(bm);
+                //storeImage(bm);
                 propertypic.setImageBitmap(bm);
 
             }
         }
     }
-    private void storeImage(Bitmap thumbnail) {
-        // Removing image saved earlier in shared prefernces
-        PreferenceManager.getDefaultSharedPreferences(this).edit().clear().apply();
-        createFolder();
-        // this code is use to generate random number and add to file
-        // name so that each file should be different
-        Random generator = new Random();
-        int n = 10000;
-        n = generator.nextInt(n);
-        String fname = "Image-"+ n +".jpg";
+//    private void storeImage(Bitmap thumbnail) {
+//        // Removing image saved earlier in shared prefernces
+//       // PreferenceManager.getDefaultSharedPreferences(this).edit().clear().apply();
+//        createFolder();
+//        // this code is use to generate random number and add to file
+//        // name so that each file should be different
+//        Random generator = new Random();
+//        int n = 10000;
+//        n = generator.nextInt(n);
+//        String fname = "Image-"+ n +".jpg";
+//
+//        // set the file path
+//        // sdcard/PictureFolder/ is the folder created in create folder method
+//        String filePath = "/sdcard/PictureFolder/"+fname;
+//        // the rest of the code is for saving the file to filepath mentioned above
+//        FileOutputStream fileOutputStream = null;
+//        try {
+//            fileOutputStream = new FileOutputStream(filePath);
+//        } catch (FileNotFoundException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
+//
+//        BufferedOutputStream bos = new BufferedOutputStream(fileOutputStream);
+//
+//        //choose another format if PNG doesn't suit you
+//        thumbnail.compress(Bitmap.CompressFormat.PNG, 100, bos);
+//        shre =  getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+//        SharedPreferences.Editor editor = shre.edit();
+//        editor.putString(key,encodeTobase64(thumbnail));
+//        editor.commit();
+//        try {
+//            bos.flush();
+//        } catch (IOException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
+//        try {
+//            bos.close();
+//        } catch (IOException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
+//
+//    }
+//    public void createFolder()
+//    {
+//        // here PictureFolder is the folder name you can change it offcourse
+//        String RootDir = Environment.getExternalStorageDirectory()
+//                + File.separator + "PictureFolder";
+//        File RootFile = new File(RootDir);
+//        RootFile.mkdir();
+//    }
 
-        // set the file path
-        // sdcard/PictureFolder/ is the folder created in create folder method
-        String filePath = "/sdcard/PictureFolder/"+fname;
-        // the rest of the code is for saving the file to filepath mentioned above
-        FileOutputStream fileOutputStream = null;
-        try {
-            fileOutputStream = new FileOutputStream(filePath);
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-        BufferedOutputStream bos = new BufferedOutputStream(fileOutputStream);
-
-        //choose another format if PNG doesn't suit you
-        thumbnail.compress(Bitmap.CompressFormat.PNG, 100, bos);
-        shre =  getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = shre.edit();
-        editor.putString(key,encodeTobase64(thumbnail));
-        editor.commit();
-        try {
-            bos.flush();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        try {
-            bos.close();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-    }
-    public void createFolder()
+    public String getStringImage(Bitmap bmp)
     {
-        // here PictureFolder is the folder name you can change it offcourse
-        String RootDir = Environment.getExternalStorageDirectory()
-                + File.separator + "PictureFolder";
-        File RootFile = new File(RootDir);
-        RootFile.mkdir();
-    }
-
-    public static String encodeTobase64(Bitmap image)
-    {
-        Bitmap immage = image;
+       // Bitmap immage = image;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        immage.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] b = baos.toByteArray();
-        String imageEncoded = Base64.encodeToString(b, Base64.DEFAULT);
+        String encodedImage  = Base64.encodeToString(b, Base64.DEFAULT);
 
-        Log.d("Image Log:", imageEncoded);
-        return imageEncoded;
+        //Log.d("Image Log:", encodedImage );
+        return encodedImage ;
 
     }
     public static Bitmap decodeBase64(String input)
@@ -361,4 +408,67 @@ public class PersonDetailsActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    private void upload(){
+        class Upload extends AsyncTask<Bitmap,Void,String>  {
+
+            ProgressDialog loading;
+
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                loading = ProgressDialog.show(PersonDetailsActivity.this, "Uploading...", null,true,true);
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                try {
+                       JSONObject jsonObject = new JSONObject(s);
+                        String id = jsonObject.getString("result");
+                        resulttv=(TextView)findViewById(R.id.result);
+                        resulttv.append("Unique id is: "+id);
+                        loading.dismiss();
+
+            } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+            @Override
+            protected String doInBackground(Bitmap... params) {
+                pcatogery = spinnerDetails.getSelectedItem().toString();
+                puname=ename.getText().toString();
+                pfname=efname.getText().toString();
+                pmobile=emobile.getText().toString();
+                pemail=eemail.getText().toString();
+                //Bitmap bitmap = params[5];
+               // bm = params[5];
+//                shre =  getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+//                if (shre.contains(key))
+//                {//save required image
+//                    String u=shre.getString(key, "");
+//                    bm=decodeBase64(u);
+//                    //profilepic.setImageBitmap(thumbnail);
+//                }
+               // upload= getStringImage(bm);
+                HashMap<String,String> data = new HashMap<>();
+                data.put(PROVIDEBY_KEY,pcatogery);
+                data.put(NAME_KEY,puname);
+                data.put(FATHERNAME_KEY,pfname);
+                data.put(MOBILE_KEY,pmobile);
+                data.put(EMAIL_KEY,pemail);
+                //data.put(UPLOAD_KEY,upload);
+                String result = rh.sendPostRequest(UPLOAD_URL,data);
+                return result;
+
+            }
+
+
+        }
+
+        Upload ui = new Upload();
+        ui.execute(bm);
+    }
+
 }

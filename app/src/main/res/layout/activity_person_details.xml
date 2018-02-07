@@ -149,36 +149,55 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="20dp"
             android:weightSum="3"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="50dp"
-            android:gravity="center">
-        <Button
-            android:id="@+id/mainprevious"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/previousbtnbg"
-            android:layout_marginRight="5dp"
-            android:layout_weight="1"
-            android:text="Previous"
-            android:textColor="#fff" />
-        <Button
-            android:id="@+id/mainnext"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/nextbtnbg"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="2"
-            android:padding="10dp"
-            android:text="Save and Continue"
-            android:textColor="#fff" />
-        </LinearLayout>
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/mainprevious"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/previousbtnbg"
+                android:textColor="#fff"
+                android:layout_weight="1"
+                android:text="Previous"
+                android:layout_gravity="center"/>
+            <Button
+                android:id="@+id/mainsave"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/submitbtnbg"
+                android:textColor="#fff"
+                android:text="Save"
+                android:layout_weight="1"
+                android:layout_gravity="center"/>
 
+            <Button
+                android:id="@+id/mainnext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/nextbtnbg"
+                android:text="next"
+                android:textColor="#fff" />
+        </LinearLayout>
+        <TextView
+            android:id="@+id/result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="18dp"
+            android:textColor="#000"
+            android:layout_marginBottom="50dp"
+            />
     </LinearLayout>
     </ScrollView>
 </android.support.constraint.ConstraintLayout>
