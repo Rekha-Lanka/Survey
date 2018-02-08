@@ -73,7 +73,8 @@ public class SubmitDetailsActivity extends AppCompatActivity {
             public void onClick(View v) {
 //                Intent i=new Intent(SubmitDetailsActivity.this,OwnerDetailsActivity.class);
 //                startActivity(i);
-                imagell.setVisibility(View.GONE);
+               // imagell.setVisibility(View.GONE);
+
 
             }
         });

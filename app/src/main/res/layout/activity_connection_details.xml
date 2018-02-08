@@ -26,7 +26,7 @@
                 android:text="Source of Water"/>
 
             <Spinner
-                android:id="@+id/spinner"
+                android:id="@+id/sourcespinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -94,7 +94,7 @@
                 android:paddingLeft="10dp"
                 android:text="Bill Delivered?"/>
             <Spinner
-                android:id="@+id/spinnerdelivery"
+                android:id="@+id/billdelvryspinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -125,7 +125,7 @@
                 android:layout_marginTop="10dp">
 
                 <EditText
-                    android:id="@+id/editMeterno"
+                    android:id="@+id/editmno"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
@@ -146,7 +146,7 @@
                 android:layout_marginTop="10dp">
 
                 <EditText
-                    android:id="@+id/editMetermake"
+                    android:id="@+id/editmmake"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -167,7 +167,7 @@
                 android:layout_marginTop="10dp">
 
                 <EditText
-                    android:id="@+id/editMeterreading"
+                    android:id="@+id/editmread"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -189,7 +189,7 @@
                 android:layout_marginTop="10dp">
 
                 <EditText
-                    android:id="@+id/editConncount"
+                    android:id="@+id/editcount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
@@ -269,7 +269,7 @@
                 android:textSize="15dp"
                 android:textStyle="bold" />
             <Spinner
-                android:id="@+id/spinnerpaidornot"
+                android:id="@+id/spinnercharge"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
