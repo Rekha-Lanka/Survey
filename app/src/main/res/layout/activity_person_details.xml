@@ -24,7 +24,7 @@
         android:layout_marginTop="20dp"
         android:text="Data Provided By"/>
     <Spinner
-        android:id="@+id/signupspinner"
+        android:id="@+id/personspinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
@@ -141,7 +141,7 @@
             android:id="@+id/propertypreview"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:background="#0f43d2"
+            android:background="#fff"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="20dp"
             android:padding="10dp"

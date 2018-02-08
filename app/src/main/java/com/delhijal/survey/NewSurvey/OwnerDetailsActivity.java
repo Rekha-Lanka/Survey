@@ -1,9 +1,12 @@
 package com.delhijal.survey.NewSurvey;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -14,21 +17,38 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.delhijal.survey.MainSurveyActivity;
 import com.delhijal.survey.R;
+import com.delhijal.survey.RequestHandler;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class OwnerDetailsActivity extends AppCompatActivity {
-Button onext,oprevious;
+Button onext,osubmit,oprevious;
 String oname,ofname,omobileno,oemail,catogery;
 EditText etoname,etofname,etomobileno,etoemail;
 SharedPreferences sharedPreferences;
     Spinner spinnerDetails;
 boolean is_mob_number=false;
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+    public static final String NAME_KEY = "name";
+    public static final String FATHERNAME_KEY = "father";
+    public static final String MOBILE_KEY = "mobile";
+    public static final String EMAIL_KEY = "email";
+    public static final String UPLOAD_KEY = "id";
+    RequestHandler rh = new RequestHandler();
+
+    public static final String MyPREFERENCES = "MyPre" ;//file name
+    SharedPreferences personpref;
+    SharedPreferences.Editor editor;
+    public static final String UPLOAD_URL = "http://www.globalm.co.in/survey/insertowner.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +60,7 @@ boolean is_mob_number=false;
         spinnerDetails=(Spinner)findViewById(R.id.ownerspinner);
         catogery = spinnerDetails.getSelectedItem().toString();
        onext=(Button)findViewById(R.id.onext);
+       osubmit=(Button)findViewById(R.id.osubmit);
        oprevious=(Button)findViewById(R.id.oprevious);
         sharedPreferences = getSharedPreferences("persondetails",MODE_PRIVATE);
         final String ownername = sharedPreferences.getString("personname",null);
@@ -64,18 +85,22 @@ boolean is_mob_number=false;
                     etomobileno.setText("");
                     etoemail.setText("");
                 }
-
-
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
        onext.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
+               Intent i=new Intent(OwnerDetailsActivity.this,PropertyDetailsActivity.class);
+               startActivity(i);
+
+           }
+       });
+       osubmit.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
                oname=etoname.getText().toString();
                ofname=etofname.getText().toString();
                omobileno=etomobileno.getText().toString();
@@ -92,20 +117,9 @@ boolean is_mob_number=false;
                }else if(oemail.equals("")|| !oemail.matches(emailPattern)) {
                    etoemail.setError("Enter valid email");
                    etoemail.setFocusable(true);
+               } else {
+                   uploadOwnerDetails();
                }
-//               else if(spinnerDetails.getSelectedItem().toString().trim().equalsIgnoreCase("choose- Tap Here")){
-//                       TextView errorText = (TextView)spinnerDetails.getSelectedView();
-//                       errorText.setError("select catogery");
-//                       errorText.setTextColor(Color.RED);//just to highlight that this is an error
-//                       //errorText.setText("select catogery");//changes the selected item text to this
-//               }
-
-                  else {
-
-                   Intent i=new Intent(OwnerDetailsActivity.this,PropertyDetailsActivity.class);
-                   startActivity(i);
-               }
-
            }
        });
 
@@ -150,5 +164,46 @@ boolean is_mob_number=false;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void uploadOwnerDetails(){
+        class UploadOwner extends AsyncTask<String,Void,String> {
+            ProgressDialog loading;
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                loading = ProgressDialog.show(OwnerDetailsActivity.this, "Uploading...", null,true,true);
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                loading.dismiss();
+                Toast.makeText(getApplicationContext(),"Successfully inserted",Toast.LENGTH_LONG).show();
+            }
+            @Override
+            protected String doInBackground(String...args) {
+                //String s=new String();
+                //Toast.makeText(getApplicationContext(),"hello do in",Toast.LENGTH_LONG).show();
+                oname=etoname.getText().toString();
+                ofname=etofname.getText().toString();
+                omobileno=etomobileno.getText().toString();
+                oemail=etoemail.getText().toString();
+                sharedPreferences = getSharedPreferences("personuniqueid",MODE_PRIVATE);
+                String unique = sharedPreferences.getString("uniqueid",null);
+               HashMap<String,String> data = new HashMap<>();
+                data.put(NAME_KEY,oname);
+                data.put(FATHERNAME_KEY,ofname);
+                data.put(MOBILE_KEY,omobileno);
+                data.put(EMAIL_KEY,oemail);
+                data.put(UPLOAD_KEY,unique);
+               String result = rh.sendPostRequest(UPLOAD_URL,data);
+                return result;
+            }
+      }
+        UploadOwner ui = new UploadOwner();
+        String name = "hi";
+        ui.execute(name);
     }
 }
