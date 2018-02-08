@@ -94,6 +94,7 @@ public class PersonDetailsActivity extends AppCompatActivity {
         emobile=(EditText)findViewById(R.id.editmobileno);
         eemail=(EditText)findViewById(R.id.editemail);
       next=(Button)findViewById(R.id.mainnext);
+      next.setEnabled(false);
       save=(Button)findViewById(R.id.mainsave);
     previous=(Button)findViewById(R.id.mainprevious);
         spinnerDetails=(Spinner)findViewById(R.id.signupspinner);
@@ -112,7 +113,14 @@ public class PersonDetailsActivity extends AppCompatActivity {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent i=new Intent(PersonDetailsActivity.this,OwnerDetailsActivity.class);
+                startActivity(i);
 
+            }
+        });
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 if(puname.equals("")||puname.length()<3){
                     ename.setError("Enter min 3 chars username");
                     ename.setFocusable(true);
@@ -141,15 +149,9 @@ public class PersonDetailsActivity extends AppCompatActivity {
                     editor.putString("mobilenumber",pmobile);
                     editor.putString("personemail",pemail);
                     editor.commit();
-                    Intent i=new Intent(PersonDetailsActivity.this,OwnerDetailsActivity.class);
-                    startActivity(i);
+                    upload();
                 }
-            }
-        });
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                upload();
+
             }
         });
         previous.setOnClickListener(new View.OnClickListener() {
@@ -300,7 +302,7 @@ public class PersonDetailsActivity extends AppCompatActivity {
 
             else if (requestCode == REQUEST_CAMERA) {
                 //onCaptureImageResult(data);
-                Bitmap bm = (Bitmap) data.getExtras().get("data");
+                bm = (Bitmap) data.getExtras().get("data");
                 //storeImage(bm);
                 propertypic.setImageBitmap(bm);
 
@@ -428,6 +430,7 @@ public class PersonDetailsActivity extends AppCompatActivity {
                         String id = jsonObject.getString("result");
                         resulttv=(TextView)findViewById(R.id.result);
                         resulttv.append("Unique id is: "+id);
+                        next.setEnabled(true);
                         loading.dismiss();
 
             } catch (JSONException e) {
@@ -442,7 +445,7 @@ public class PersonDetailsActivity extends AppCompatActivity {
                 pfname=efname.getText().toString();
                 pmobile=emobile.getText().toString();
                 pemail=eemail.getText().toString();
-                //Bitmap bitmap = params[5];
+                Bitmap bitmap = params[0];
                // bm = params[5];
 //                shre =  getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 //                if (shre.contains(key))
@@ -451,14 +454,14 @@ public class PersonDetailsActivity extends AppCompatActivity {
 //                    bm=decodeBase64(u);
 //                    //profilepic.setImageBitmap(thumbnail);
 //                }
-               // upload= getStringImage(bm);
+               upload= getStringImage(bitmap);
                 HashMap<String,String> data = new HashMap<>();
                 data.put(PROVIDEBY_KEY,pcatogery);
                 data.put(NAME_KEY,puname);
                 data.put(FATHERNAME_KEY,pfname);
                 data.put(MOBILE_KEY,pmobile);
                 data.put(EMAIL_KEY,pemail);
-                //data.put(UPLOAD_KEY,upload);
+                data.put(UPLOAD_KEY,upload);
                 String result = rh.sendPostRequest(UPLOAD_URL,data);
                 return result;
 
