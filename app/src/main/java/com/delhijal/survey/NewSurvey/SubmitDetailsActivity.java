@@ -2,6 +2,7 @@ package com.delhijal.survey.NewSurvey;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,6 +10,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
@@ -22,12 +24,20 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.delhijal.survey.MainSurveyActivity;
 import com.delhijal.survey.R;
+import com.delhijal.survey.RequestHandler;
 import com.delhijal.survey.Utils.CameraUtility;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
@@ -35,6 +45,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Random;
 
 public class SubmitDetailsActivity extends AppCompatActivity {
@@ -42,12 +53,24 @@ public class SubmitDetailsActivity extends AppCompatActivity {
     private String userChoosenTask;
     ImageView nameplatepreview,meterpreview;
     Button  nameplatebtn,meterbtn;
+    Spinner sewerspinner,djbspinner;
+    EditText etkitchens,etwashrooms;
+    String sewerspinn,djbspinn,kitchens,washrooms,nameplateimg,meterimg;
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
+    RequestHandler rh = new RequestHandler();
     SharedPreferences shre;
     int flag=0;
     LinearLayout imagell;
-    public static final String  key = "nameKey";
-    public static final String MyPREFERENCES = "MyPre" ;//file name
+    Bitmap bm,bm2,bm1;
+    public static final String UPLOAD_URL = "http://www.globalm.co.in/survey/insertfinal.php";
+
+    public static final String SAWER_KEY = "sawer";
+    public static final String KITCHEN_KEY = "kitch";
+    public static final String WASHROOM_KEY = "wash";
+    public static final String DJBSAWER_KEY = "djbsawer";
+    public static final String NAMEPLATEIMG_KEY = "nameplateimg";
+    public static final String METERIMG_KEY = "meterimg";
+    public static final String UPLOAD_KEY = "id";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +78,10 @@ public class SubmitDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_submit_details);
         sprevious=(Button)findViewById(R.id.sprevious);
         submit=(Button)findViewById(R.id.submit);
+        etkitchens=(EditText)findViewById(R.id.editkitchens);
+        etwashrooms=(EditText)findViewById(R.id.editwashrooms);
+        sewerspinner=(Spinner)findViewById(R.id.sewarspinner);
+        djbspinner=(Spinner)findViewById(R.id.djbconnspinner);
         nameplatepreview=(ImageView)findViewById(R.id.nameplatepreview);
         nameplatebtn=(Button)findViewById(R.id.nameplatebtn);
         imagell=(LinearLayout)findViewById(R.id.imagegalleryll);
@@ -74,7 +101,7 @@ public class SubmitDetailsActivity extends AppCompatActivity {
 //                Intent i=new Intent(SubmitDetailsActivity.this,OwnerDetailsActivity.class);
 //                startActivity(i);
                // imagell.setVisibility(View.GONE);
-
+             uploadfinaldetails();
 
             }
         });
@@ -226,19 +253,21 @@ public class SubmitDetailsActivity extends AppCompatActivity {
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == SELECT_FILE){
                 //onSelectFromGalleryResult(data);
-                Bitmap bm=null;
+                 bm=null;
                 if (data != null) {
                     try {
                         bm = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), data.getData());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    storeImage(bm);
+                    //storeImage(bm);
                     if(flag==0) {
+                        bm1 = bm;
                         nameplatepreview.setImageBitmap(bm);
                     }
                     else{
                         meterpreview.setImageBitmap(bm);
+                        bm2 = bm;
                     }
 
                 }
@@ -246,74 +275,22 @@ public class SubmitDetailsActivity extends AppCompatActivity {
 
             else if (requestCode == REQUEST_CAMERA) {
                 //onCaptureImageResult(data);
-                Bitmap bm = (Bitmap) data.getExtras().get("data");
-                storeImage(bm);
+               bm = (Bitmap) data.getExtras().get("data");
+                //storeImage(bm);
                 if(flag==0){
                     nameplatepreview.setImageBitmap(bm);
+                    bm1= bm;
                 }
                 else{
                     meterpreview.setImageBitmap(bm);
+                    bm2 =bm;
                 }
 
 
             }
         }
     }
-    private void storeImage(Bitmap thumbnail) {
-        // Removing image saved earlier in shared prefernces
-        PreferenceManager.getDefaultSharedPreferences(this).edit().clear().apply();
-        createFolder();
-        // this code is use to generate random number and add to file
-        // name so that each file should be different
-        Random generator = new Random();
-        int n = 10000;
-        n = generator.nextInt(n);
-        String fname = "Image-"+ n +".jpg";
-
-        // set the file path
-        // sdcard/PictureFolder/ is the folder created in create folder method
-        String filePath = "/sdcard/PictureFolder/"+fname;
-        // the rest of the code is for saving the file to filepath mentioned above
-        FileOutputStream fileOutputStream = null;
-        try {
-            fileOutputStream = new FileOutputStream(filePath);
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-        BufferedOutputStream bos = new BufferedOutputStream(fileOutputStream);
-
-        //choose another format if PNG doesn't suit you
-        thumbnail.compress(Bitmap.CompressFormat.PNG, 100, bos);
-        shre =  getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = shre.edit();
-        editor.putString(key,encodeTobase64(thumbnail));
-        editor.commit();
-        try {
-            bos.flush();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        try {
-            bos.close();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-    }
-    public void createFolder()
-    {
-        // here PictureFolder is the folder name you can change it offcourse
-        String RootDir = Environment.getExternalStorageDirectory()
-                + File.separator + "PictureFolder";
-        File RootFile = new File(RootDir);
-        RootFile.mkdir();
-    }
-
-    public static String encodeTobase64(Bitmap image)
+    public static String getStringImage(Bitmap image)
     {
         Bitmap immage = image;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -325,9 +302,65 @@ public class SubmitDetailsActivity extends AppCompatActivity {
         return imageEncoded;
 
     }
-    public static Bitmap decodeBase64(String input)
-    {
-        byte[] decodedByte = Base64.decode(input, 0);
-        return BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
+//    public static Bitmap decodeBase64(String input)
+//    {
+//        byte[] decodedByte = Base64.decode(input, 0);
+//        return BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
+//    }
+
+    private void uploadfinaldetails(){
+        class UploadDetails extends AsyncTask<Bitmap,Void,String> {
+
+            ProgressDialog loading;
+
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                loading = ProgressDialog.show(SubmitDetailsActivity.this, "Uploading...", null,true,true);
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                loading.dismiss();
+                Toast.makeText(getApplicationContext(),"Successfully inserted",Toast.LENGTH_LONG).show();
+
+            }
+            @Override
+            protected String doInBackground(Bitmap... params) {
+                //Toast.makeText(getApplicationContext(),"hello do in",Toast.LENGTH_LONG).show();
+                //String sewerspinn,djbspinn,kitchens,washrooms,nameplateimg,meterimg;
+                sewerspinn = sewerspinner.getSelectedItem().toString();
+                djbspinn = djbspinner.getSelectedItem().toString();
+                kitchens=etkitchens.getText().toString();
+                washrooms=etwashrooms.getText().toString();
+                Bitmap bitmap1 = params[0];
+                Bitmap bitmap2=params[1];
+
+                nameplateimg= getStringImage(bitmap1);
+                meterimg=getStringImage(bitmap2);
+                shre = getSharedPreferences("personuniqueid",MODE_PRIVATE);
+                String unique = shre.getString("uniqueid",null);
+                HashMap<String,String> data = new HashMap<>();
+                data.put(KITCHEN_KEY,kitchens);
+                data.put(WASHROOM_KEY,washrooms);
+                data.put(SAWER_KEY,sewerspinn);
+                data.put(DJBSAWER_KEY,djbspinn);
+                data.put(NAMEPLATEIMG_KEY,nameplateimg);
+                data.put(METERIMG_KEY,meterimg);
+                data.put(UPLOAD_KEY,unique);
+                String result = rh.sendPostRequest(UPLOAD_URL,data);
+                return result;
+
+            }
+
+        }
+
+        UploadDetails ui = new UploadDetails();
+        ui.execute(bm1,bm2);
     }
+
 }
+
+
