@@ -150,7 +150,7 @@ public class PersonDetailsActivity extends AppCompatActivity {
                     editor.putString("mobilenumber",pmobile);
                     editor.putString("personemail",pemail);
                     editor.commit();
-                    //Toast.makeText(getApplicationContext(),"welcome",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"welcome",Toast.LENGTH_LONG).show();
                     upload();
                 }
 
