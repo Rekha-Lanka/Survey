@@ -103,11 +103,6 @@ public class PersonDetailsActivity extends AppCompatActivity {
          browse=(Button)findViewById(R.id.browse);
         propertypic=(ImageView)findViewById(R.id.propertypreview);
 
-        pcatogery = spinnerDetails.getSelectedItem().toString();
-        puname=ename.getText().toString();
-        pfname=efname.getText().toString();
-        pmobile=emobile.getText().toString();
-        pemail=eemail.getText().toString();
 
 
         next.setOnClickListener(new View.OnClickListener() {
@@ -121,6 +116,12 @@ public class PersonDetailsActivity extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                pcatogery = spinnerDetails.getSelectedItem().toString();
+                puname=ename.getText().toString();
+                pfname=efname.getText().toString();
+                pmobile=emobile.getText().toString();
+                pemail=eemail.getText().toString();
+
                 if(puname.equals("")||puname.length()<3){
                     ename.setError("Enter min 3 chars username");
                     ename.setFocusable(true);
@@ -149,6 +150,7 @@ public class PersonDetailsActivity extends AppCompatActivity {
                     editor.putString("mobilenumber",pmobile);
                     editor.putString("personemail",pemail);
                     editor.commit();
+                    //Toast.makeText(getApplicationContext(),"welcome",Toast.LENGTH_LONG).show();
                     upload();
                 }
 
@@ -440,6 +442,7 @@ public class PersonDetailsActivity extends AppCompatActivity {
             }
             @Override
             protected String doInBackground(Bitmap... params) {
+                //Toast.makeText(getApplicationContext(),"hello do in",Toast.LENGTH_LONG).show();
                 pcatogery = spinnerDetails.getSelectedItem().toString();
                 puname=ename.getText().toString();
                 pfname=efname.getText().toString();
