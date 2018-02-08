@@ -1,14 +1,18 @@
 package com.delhijal.survey.NewSurvey;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
@@ -19,24 +23,46 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.delhijal.survey.MainSurveyActivity;
 import com.delhijal.survey.R;
+import com.delhijal.survey.RequestHandler;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
 public class PropertyDetailsActivity extends AppCompatActivity implements LocationListener {
-   Button pnext,pprevious;
+   Button pnext,pprevious,psubmit;
    EditText etdno,etfloorno,etpropertyname,etstreet,etarea,etlandmark,etpin;
-   String dno,floorno,propertyname,street,area,landmark,pin;
+    Spinner propertyspinner,businessspinner,recordspinner;
+   String dno,floorno,propertyname,street,area,landmark,pin,location,propertynature,busnature,record;
    TextView locationtv;
     LocationManager locationManager;
+    SharedPreferences pref;
     Handler h = new Handler();
+    RequestHandler rh = new RequestHandler();
+    public static final String UPLOAD_URL = "http://www.globalm.co.in/survey/insertproperty.php";
     int delay =500; //1 second=1000 milisecond, 15*1000=15seconds
     Runnable runnable;
+    public static final String PNATURE_KEY = "pnature";
+    public static final String BNATURE_KEY = "bnature";
+    public static final String ADDRESS_KEY = "paddr";
+    public static final String HOUSENO_KEY = "phno";
+    public static final String FLOORNO_KEY = "pfno";
+    public static final String PNAME_KEY = "pname";
+    public static final String PSTREET_KEY = "pstreet";
+    public static final String PAREA_KEY = "parea";
+    public static final String PLAND_KEY = "pland";
+    public static final String PIN_KEY = "ppin";
+    public static final String PLATLANG_KEY = "platlang";
+    public static final String UPLOAD_KEY = "id";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,8 +75,13 @@ public class PropertyDetailsActivity extends AppCompatActivity implements Locati
         etlandmark=(EditText)findViewById(R.id.editlandmark);
         etpin=(EditText)findViewById(R.id.editpin);
         locationtv=(TextView)findViewById(R.id.locationtv);
+        propertyspinner=(Spinner)findViewById(R.id.propertyspinner);
+        businessspinner=(Spinner)findViewById(R.id.businessspinner);
+        recordspinner=(Spinner)findViewById(R.id.recordspinner);
         pnext=(Button)findViewById(R.id.pnext);
+        psubmit=(Button)findViewById(R.id.psubmit);
         pprevious=(Button)findViewById(R.id.pprevious);
+
         if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION}, 101);
 
@@ -59,6 +90,17 @@ public class PropertyDetailsActivity extends AppCompatActivity implements Locati
         pnext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent i=new Intent(PropertyDetailsActivity.this,ConnectionDetailsActivity.class);
+                startActivity(i);
+            }
+        });
+
+        psubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                propertynature = propertyspinner.getSelectedItem().toString();
+                busnature=businessspinner.getSelectedItem().toString();
+                record=recordspinner.getSelectedItem().toString();
                 dno=etdno.getText().toString();
                 floorno=etfloorno.getText().toString();
                 propertyname=etpropertyname.getText().toString();
@@ -66,6 +108,7 @@ public class PropertyDetailsActivity extends AppCompatActivity implements Locati
                 area=etarea.getText().toString();
                 landmark=etlandmark.getText().toString();
                 pin=etpin.getText().toString();
+                location=locationtv.getText().toString();
                 if(dno.equals("")||dno.length()<2){
                     etdno.setError("Enter min 2 chars");
                     etdno.setFocusable(true);
@@ -88,20 +131,20 @@ public class PropertyDetailsActivity extends AppCompatActivity implements Locati
                     etpin.setError("Enter pin number");
                     etpin.setFocusable(true);
                 }else {
-                    Intent i = new Intent(PropertyDetailsActivity.this, ConnectionDetailsActivity.class);
-                    startActivity(i);
+                    uploadpropertydetails();
                 }
+
             }
         });
-
         pprevious.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent i=new Intent(PropertyDetailsActivity.this,OwnerDetailsActivity.class);
-                startActivity(i);
+            public void onClick(View view) {
+                Intent intent=new Intent(PropertyDetailsActivity.this,OwnerDetailsActivity.class);
+                startActivity(intent);
             }
         });
     }
+
     void getLocation() {
         try {
             locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -189,4 +232,60 @@ public class PropertyDetailsActivity extends AppCompatActivity implements Locati
     public void onProviderDisabled(String provider) {
         Toast.makeText(PropertyDetailsActivity.this, "Please Enable GPS and Internet", Toast.LENGTH_SHORT).show();
     }
+
+    private void uploadpropertydetails() {
+        class UploadProperty extends AsyncTask<String,Void,String> {
+            ProgressDialog loading;
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                loading = ProgressDialog.show(PropertyDetailsActivity.this, "Uploading...", null,true,true);
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                loading.dismiss();
+                Toast.makeText(getApplicationContext(),"Successfully inserted",Toast.LENGTH_LONG).show();
+            }
+            @Override
+            protected String doInBackground(String...args) {
+                //String s=new String();
+                //Toast.makeText(getApplicationContext(),"hello do in",Toast.LENGTH_LONG).show();
+                propertynature = propertyspinner.getSelectedItem().toString();
+                busnature=businessspinner.getSelectedItem().toString();
+                record=recordspinner.getSelectedItem().toString();
+                dno=etdno.getText().toString();
+                floorno=etfloorno.getText().toString();
+                propertyname=etpropertyname.getText().toString();
+                street=etstreet.getText().toString();
+                area=etarea.getText().toString();
+                landmark=etlandmark.getText().toString();
+                pin=etpin.getText().toString();
+                location=locationtv.getText().toString();
+                pref = getSharedPreferences("personuniqueid",MODE_PRIVATE);
+                String unique = pref.getString("uniqueid",null);
+                HashMap<String,String> data = new HashMap<>();
+                data.put(PNATURE_KEY,propertynature);
+                data.put(BNATURE_KEY,busnature);
+                data.put(ADDRESS_KEY,record);
+                data.put(HOUSENO_KEY,dno);
+                data.put(FLOORNO_KEY,floorno);
+                data.put(PNAME_KEY,propertyname);
+                data.put(PSTREET_KEY,street);
+                data.put(PAREA_KEY,area);
+                data.put(PLAND_KEY,landmark);
+                data.put(PIN_KEY,pin);
+                data.put(PLATLANG_KEY,location);
+                data.put(UPLOAD_KEY,unique);
+                String result = rh.sendPostRequest(UPLOAD_URL,data);
+                return result;
+            }
+        }
+        UploadProperty ui = new UploadProperty();
+        String name = "hi";
+        ui.execute(name);
+    }
+
 }

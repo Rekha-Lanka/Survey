@@ -24,7 +24,7 @@
             android:text="Property Details"/>
 
         <Spinner
-            android:id="@+id/signupspinner"
+            android:id="@+id/propertyspinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -50,7 +50,7 @@
             android:paddingLeft="10dp"
             android:text="Address as per Records:"/>
         <Spinner
-            android:id="@+id/addrassame"
+            android:id="@+id/recordspinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -191,8 +191,9 @@
                 android:layout_marginRight="20dp"
                 android:ems="10"
                 android:hint="Pincode"
-                android:inputType="text"
+                android:inputType="number"
                 android:padding="10dp"
+                android:maxLength="6"
                 android:singleLine="true"
                 android:textColor="#000"
                 android:textSize="18dp" />

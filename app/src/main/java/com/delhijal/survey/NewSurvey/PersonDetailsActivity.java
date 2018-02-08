@@ -144,11 +144,15 @@ public class PersonDetailsActivity extends AppCompatActivity {
                 }else {
                     personpref = getSharedPreferences("persondetails", MODE_PRIVATE);
                     SharedPreferences.Editor editor = personpref.edit();
+//                    String pusername = ename.getText().toString();
+//                    String pfathername=
+//                    String pno = emobile.getText().toString();
                     editor.putString("personname", puname);
                     editor.putString("pfathername",pfname);
                     editor.putString("mobilenumber",pmobile);
                     editor.putString("personemail",pemail);
                     editor.commit();
+                    //Toast.makeText(getApplicationContext(),"welcome",Toast.LENGTH_LONG).show();
                     upload();
                 }
 
@@ -309,6 +313,59 @@ public class PersonDetailsActivity extends AppCompatActivity {
             }
         }
     }
+//    private void storeImage(Bitmap thumbnail) {
+//        // Removing image saved earlier in shared prefernces
+//       // PreferenceManager.getDefaultSharedPreferences(this).edit().clear().apply();
+//        createFolder();
+//        // this code is use to generate random number and add to file
+//        // name so that each file should be different
+//        Random generator = new Random();
+//        int n = 10000;
+//        n = generator.nextInt(n);
+//        String fname = "Image-"+ n +".jpg";
+//
+//        // set the file path
+//        // sdcard/PictureFolder/ is the folder created in create folder method
+//        String filePath = "/sdcard/PictureFolder/"+fname;
+//        // the rest of the code is for saving the file to filepath mentioned above
+//        FileOutputStream fileOutputStream = null;
+//        try {
+//            fileOutputStream = new FileOutputStream(filePath);
+//        } catch (FileNotFoundException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
+//
+//        BufferedOutputStream bos = new BufferedOutputStream(fileOutputStream);
+//
+//        //choose another format if PNG doesn't suit you
+//        thumbnail.compress(Bitmap.CompressFormat.PNG, 100, bos);
+//        shre =  getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+//        SharedPreferences.Editor editor = shre.edit();
+//        editor.putString(key,encodeTobase64(thumbnail));
+//        editor.commit();
+//        try {
+//            bos.flush();
+//        } catch (IOException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
+//        try {
+//            bos.close();
+//        } catch (IOException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
+//
+//    }
+//    public void createFolder()
+//    {
+//        // here PictureFolder is the folder name you can change it offcourse
+//        String RootDir = Environment.getExternalStorageDirectory()
+//                + File.separator + "PictureFolder";
+//        File RootFile = new File(RootDir);
+//        RootFile.mkdir();
+//    }
 
     public String getStringImage(Bitmap bmp)
     {
@@ -347,6 +404,7 @@ public class PersonDetailsActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_home) {
             Intent i=new Intent(this,MainSurveyActivity.class);
@@ -361,6 +419,8 @@ public class PersonDetailsActivity extends AppCompatActivity {
         class Upload extends AsyncTask<Bitmap,Void,String>  {
 
             ProgressDialog loading;
+
+
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
@@ -376,7 +436,10 @@ public class PersonDetailsActivity extends AppCompatActivity {
                         resulttv.append("Unique id is: "+id);
                     sharedpref = getSharedPreferences("personuniqueid", MODE_PRIVATE);
                     editor = sharedpref.edit();
-                    editor.putString("uniqueid", id);
+                   // String unique = resulttv.getText().toString();
+                   // String mno = etmobileno.getText().toString();
+                    editor.putString("uniqueid",id);
+                   // editor.putString("mobileno", mno);
                     editor.commit();
 
                         next.setEnabled(true);
@@ -396,6 +459,14 @@ public class PersonDetailsActivity extends AppCompatActivity {
                 pmobile=emobile.getText().toString();
                 pemail=eemail.getText().toString();
                 Bitmap bitmap = params[0];
+               // bm = params[5];
+//                shre =  getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+//                if (shre.contains(key))
+//                {//save required image
+//                    String u=shre.getString(key, "");
+//                    bm=decodeBase64(u);
+//                    //profilepic.setImageBitmap(thumbnail);
+//                }
                upload= getStringImage(bitmap);
                 HashMap<String,String> data = new HashMap<>();
                 data.put(PROVIDEBY_KEY,pcatogery);
@@ -408,6 +479,8 @@ public class PersonDetailsActivity extends AppCompatActivity {
                 return result;
 
             }
+
+
         }
 
         Upload ui = new Upload();

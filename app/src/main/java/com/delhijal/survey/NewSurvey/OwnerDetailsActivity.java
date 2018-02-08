@@ -85,9 +85,13 @@ boolean is_mob_number=false;
                     etomobileno.setText("");
                     etoemail.setText("");
                 }
+
+
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
        onext.setOnClickListener(new View.OnClickListener() {
@@ -181,6 +185,18 @@ boolean is_mob_number=false;
                 super.onPostExecute(s);
                 loading.dismiss();
                 Toast.makeText(getApplicationContext(),"Successfully inserted",Toast.LENGTH_LONG).show();
+//                try {
+//                    JSONObject jsonObject = new JSONObject(s);
+//                    String id = jsonObject.getString("result");
+//                    resulttv=(TextView)findViewById(R.id.result);
+//                    resulttv.append("Unique id is: "+id);
+//                    next.setEnabled(true);
+//                    loading.dismiss();
+//
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+
             }
             @Override
             protected String doInBackground(String...args) {
@@ -192,6 +208,16 @@ boolean is_mob_number=false;
                 oemail=etoemail.getText().toString();
                 sharedPreferences = getSharedPreferences("personuniqueid",MODE_PRIVATE);
                 String unique = sharedPreferences.getString("uniqueid",null);
+                //Bitmap bitmap = params[0];
+                // bm = params[5];
+//                shre =  getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+//                if (shre.contains(key))
+//                {//save required image
+//                    String u=shre.getString(key, "");
+//                    bm=decodeBase64(u);
+//                    //profilepic.setImageBitmap(thumbnail);
+//                }
+//                upload= getStringImage(bitmap);
                HashMap<String,String> data = new HashMap<>();
                 data.put(NAME_KEY,oname);
                 data.put(FATHERNAME_KEY,ofname);
@@ -200,10 +226,13 @@ boolean is_mob_number=false;
                 data.put(UPLOAD_KEY,unique);
                String result = rh.sendPostRequest(UPLOAD_URL,data);
                 return result;
+
             }
       }
+
         UploadOwner ui = new UploadOwner();
         String name = "hi";
         ui.execute(name);
     }
+
 }
