@@ -67,6 +67,9 @@ boolean is_mob_number=false;
         final String ownerfname = sharedPreferences.getString("pfathername",null);
         final String ownermno = sharedPreferences.getString("mobilenumber",null);
         final String owneremail = sharedPreferences.getString("personemail",null);
+
+      //  sharedPreferences = getSharedPreferences("uniquesurveyid",MODE_PRIVATE);
+//                   String unique = sharedPreferences.getString("surveyid",null);
         spinnerDetails.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -208,6 +211,8 @@ boolean is_mob_number=false;
                 oemail=etoemail.getText().toString();
                 sharedPreferences = getSharedPreferences("personuniqueid",MODE_PRIVATE);
                 String unique = sharedPreferences.getString("uniqueid",null);
+//                sharedPreferences = getSharedPreferences("uniquesurveyid",MODE_PRIVATE);
+//                   String unique = sharedPreferences.getString("surveyid",null);
                 //Bitmap bitmap = params[0];
                 // bm = params[5];
 //                shre =  getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);

@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.delhijal.survey.NewSurvey.PersonDetailsActivity;
+import com.delhijal.survey.UpdateSurvey.MainUpdateActivity;
 
 public class MainSurveyActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -64,7 +65,8 @@ public class MainSurveyActivity extends AppCompatActivity
         updatell.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent i=new Intent(MainSurveyActivity.this, MainUpdateActivity.class);
+                startActivity(i);
             }
         });
         cmpltll.setOnClickListener(new View.OnClickListener() {

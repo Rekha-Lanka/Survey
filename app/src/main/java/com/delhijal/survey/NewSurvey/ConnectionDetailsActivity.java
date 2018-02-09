@@ -82,7 +82,45 @@ public class ConnectionDetailsActivity extends AppCompatActivity {
          csubmit.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View view) {
-                 uploadwaterdetails();
+                 conn = etconn.getText().toString();
+                 mno = etmno.getText().toString();
+                 mmake = etmmake.getText().toString();
+                 mreading = etmreading.getText().toString();
+                 conncount = etcount.getText().toString();
+                 raisedbill = etraisedbill.getText().toString();
+                 paidbill = etpaidbill.getText().toString();
+                 borewellsno = etborewellsno.getText().toString();
+                 sourceespinn = sourcespinner.getSelectedItem().toString();
+                 djbspinn = djbspinner.getSelectedItem().toString();
+                 billspinn = billspinner.getSelectedItem().toString();
+                 chargespinn = chargespinner.getSelectedItem().toString();
+                 if (conn.equals("") || conn.length() < 2) {
+                     etconn.setError("Enter connection details");
+                     etconn.setFocusable(true);
+                 } else if (mno.equals("")) {
+                     etmno.setError("Enter meter no");
+                     etmno.setFocusable(true);
+                 } else if (mmake.equals("")){
+                     etmmake.setError("Enter meter details");
+                     etmmake.setFocusable(true);
+                 } else if (mreading.equals("")) {
+                     etmreading.setError("Enter meter reading");
+                     etmreading.setFocusable(true);
+                 } else if (conncount.equals("")) {
+                     etcount.setError("Enter connection count");
+                     etcount.setFocusable(true);
+                 } else if (raisedbill.equals("")) {
+                     etraisedbill.setError("Enter raised bill");
+                     etraisedbill.setFocusable(true);
+                 } else if (paidbill.equals("")) {
+                     etpaidbill.setError("Enter pin number");
+                     etpaidbill.setFocusable(true);
+                 }else if(borewellsno.equals("")){
+                     etborewellsno.setError("Enter no.of borewells");
+                     etborewellsno.setFocusable(true);
+                 } else {
+                     uploadwaterdetails();
+                 }
              }
          });
         cprevious.setOnClickListener(new View.OnClickListener() {

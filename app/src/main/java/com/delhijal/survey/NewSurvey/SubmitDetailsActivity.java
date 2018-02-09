@@ -101,7 +101,20 @@ public class SubmitDetailsActivity extends AppCompatActivity {
 //                Intent i=new Intent(SubmitDetailsActivity.this,OwnerDetailsActivity.class);
 //                startActivity(i);
                // imagell.setVisibility(View.GONE);
-             uploadfinaldetails();
+
+                sewerspinn = sewerspinner.getSelectedItem().toString();
+                djbspinn = djbspinner.getSelectedItem().toString();
+                kitchens=etkitchens.getText().toString();
+                washrooms=etwashrooms.getText().toString();
+                if (kitchens.equals("")) {
+                    etkitchens.setError("Enter kitchen details");
+                    etkitchens.setFocusable(true);
+                } else if (washrooms.equals("")){
+                    etwashrooms.setError("Enter no of washrooms");
+                    etwashrooms.setFocusable(true);
+                } else {
+                    uploadfinaldetails();
+                }
 
             }
         });
