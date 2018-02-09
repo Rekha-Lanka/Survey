@@ -49,6 +49,8 @@ public class MainSurveyActivity extends AppCompatActivity
         pref = getSharedPreferences("userdetails",MODE_PRIVATE);
         String loginuname = pref.getString("username",null);
         String loginmobileno = pref.getString("mobileno",null);
+        pref = getSharedPreferences("persondetails",MODE_PRIVATE);
+        getApplicationContext().getSharedPreferences("persondetails", 0).edit().clear().commit();
         if(loginuname==""||loginuname==null){
             Intent i=new Intent(this,SigninActivity.class);
             startActivity(i);
