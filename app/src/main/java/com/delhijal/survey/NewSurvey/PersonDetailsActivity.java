@@ -11,6 +11,8 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -70,6 +72,7 @@ public class PersonDetailsActivity extends AppCompatActivity {
     boolean is_mob_number = false;
     Spinner spinnerDetails;
     SharedPreferences sharedpref;
+    MainSurveyActivity msa;
     public static final String  key = "nameKey";
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
@@ -86,6 +89,7 @@ public class PersonDetailsActivity extends AppCompatActivity {
     SharedPreferences.Editor editor;
     public static final String UPLOAD_URL = "http://www.globalm.co.in/survey/insertsurvey.php";
     Bitmap bm;
+    NetworkInfo wifiCheck;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,78 +104,94 @@ public class PersonDetailsActivity extends AppCompatActivity {
       save=(Button)findViewById(R.id.mainsave);
       previous=(Button)findViewById(R.id.mainprevious);
       spinnerDetails=(Spinner)findViewById(R.id.personspinner);
-
-    imagegalleryll=(LinearLayout)findViewById(R.id.picll);
+        imagegalleryll=(LinearLayout)findViewById(R.id.picll);
          browse=(Button)findViewById(R.id.browse);
         propertypic=(ImageView)findViewById(R.id.propertypreview);
+//        ConnectivityManager connectionManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+//        wifiCheck = connectionManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+//        //textView = (TextView) findViewById(R.id.wifi_connection);
+//        if (wifiCheck.isConnected()) {
+//            // Do whatever here
+//           Toast.makeText(getApplicationContext(),"WiFi is connected",Toast.LENGTH_LONG).show();
+//            //textView.setText("WiFi is Connected");
+//
+//        } else {
+//            Toast.makeText(getApplicationContext(),"WiFi is not connected",Toast.LENGTH_LONG).show();
+//
+//        }
 
+      //  if(msa.isNetworkAvailable(getApplicationContext()))){
+            next.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(PersonDetailsActivity.this, OwnerDetailsActivity.class);
+                    startActivity(i);
 
+                }
+            });
+            save.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-        next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i=new Intent(PersonDetailsActivity.this,OwnerDetailsActivity.class);
-                startActivity(i);
+                    pcatogery = spinnerDetails.getSelectedItem().toString();
+                    puname = ename.getText().toString();
+                    pfname = efname.getText().toString();
+                    pmobile = emobile.getText().toString();
+                    pemail = eemail.getText().toString();
 
-            }
-        });
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pcatogery = spinnerDetails.getSelectedItem().toString();
-                puname=ename.getText().toString();
-                pfname=efname.getText().toString();
-                pmobile=emobile.getText().toString();
-                pemail=eemail.getText().toString();
-
-                if(puname.equals("")||puname.length()<3){
-                    ename.setError("Enter min 3 chars username");
-                    ename.setFocusable(true);
-                }else if(pfname.equals("")||pfname.length()<3){
-                    efname.setError("Enter min 3 chars username");
-                    efname.setFocusable(true);
-                }else if(pmobile.equals("")|| !ismobileno()) {
-                    emobile.setError("Enter valid Mobile no");
-                    emobile.setFocusable(true);
-                }else if(pemail.equals("")|| !pemail.matches(emailPattern)){
-                    eemail.setError("Enter valid email");
-                    eemail.setFocusable(true);
-                } else if(spinnerDetails.getSelectedItem().toString().trim().equalsIgnoreCase("Data provided by - Tap Here")){
-                    TextView errorText = (TextView)spinnerDetails.getSelectedView();
-                    errorText.setError("select catogery");
-                    errorText.setTextColor(Color.RED);//just to highlight that this is an error
-                    //errorText.setText("select catogery");//changes the selected item text to this
-                }else {
-                    personpref = getSharedPreferences("persondetails", MODE_PRIVATE);
-                    SharedPreferences.Editor editor = personpref.edit();
+                    if (puname.equals("") || puname.length() < 3) {
+                        ename.setError("Enter min 3 chars username");
+                        ename.setFocusable(true);
+                    } else if (pfname.equals("") || pfname.length() < 3) {
+                        efname.setError("Enter min 3 chars username");
+                        efname.setFocusable(true);
+                    } else if (pmobile.equals("") || !ismobileno()) {
+                        emobile.setError("Enter valid Mobile no");
+                        emobile.setFocusable(true);
+                    } else if (pemail.equals("") || !pemail.matches(emailPattern)) {
+                        eemail.setError("Enter valid email");
+                        eemail.setFocusable(true);
+                    } else if (spinnerDetails.getSelectedItem().toString().trim().equalsIgnoreCase("Data provided by - Tap Here")) {
+                        TextView errorText = (TextView) spinnerDetails.getSelectedView();
+                        errorText.setError("select catogery");
+                        errorText.setTextColor(Color.RED);//just to highlight that this is an error
+                        //errorText.setText("select catogery");//changes the selected item text to this
+                    } else {
+                        personpref = getSharedPreferences("persondetails", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = personpref.edit();
 //                    String pusername = ename.getText().toString();
 //                    String pfathername=
 //                    String pno = emobile.getText().toString();
-                    editor.putString("personname", puname);
-                    editor.putString("pfathername",pfname);
-                    editor.putString("mobilenumber",pmobile);
-                    editor.putString("personemail",pemail);
-                    editor.commit();
-                    //Toast.makeText(getApplicationContext(),"welcome",Toast.LENGTH_LONG).show();
-                    upload();
-                }
+                        editor.putString("personname", puname);
+                        editor.putString("pfathername", pfname);
+                        editor.putString("mobilenumber", pmobile);
+                        editor.putString("personemail", pemail);
+                        editor.commit();
+                        //Toast.makeText(getApplicationContext(),"welcome",Toast.LENGTH_LONG).show();
+                        upload();
 
-            }
-        });
-        previous.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i=new Intent(PersonDetailsActivity.this,MainSurveyActivity.class);
-                startActivity(i);
-            }
-        });
-        browse.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                imagegalleryll.setVisibility(View.VISIBLE);
-              selectImage();
-            }
-        });
+                    }
+//                else{
+//                    Toast.makeText(getApplicationContext(),"No network connection",Toast.LENGTH_LONG).show();
+//                }
+
+                }
+            });
+            previous.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(PersonDetailsActivity.this, MainSurveyActivity.class);
+                    startActivity(i);
+                }
+            });
+            browse.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    imagegalleryll.setVisibility(View.VISIBLE);
+                    selectImage();
+                }
+            });
+       // }
 
     }
     public boolean ismobileno() {

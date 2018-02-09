@@ -1,7 +1,11 @@
 package com.delhijal.survey;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -17,15 +21,18 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.delhijal.survey.NewSurvey.PersonDetailsActivity;
 import com.delhijal.survey.UpdateSurvey.MainUpdateActivity;
+import com.delhijal.survey.Utils.NetworkStatus;
 
 public class MainSurveyActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     LinearLayout newll,updatell,cmpltll;
     SharedPreferences pref;
     TextView uname,mobileno;
+  NetworkStatus ns;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,11 +71,14 @@ public class MainSurveyActivity extends AppCompatActivity
              startActivity(i);
             }
         });
+
         updatell.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i=new Intent(MainSurveyActivity.this, MainUpdateActivity.class);
-                startActivity(i);
+
+                   Intent i = new Intent(MainSurveyActivity.this, MainUpdateActivity.class);
+                   startActivity(i);
+
             }
         });
         cmpltll.setOnClickListener(new View.OnClickListener() {
@@ -148,4 +158,7 @@ public class MainSurveyActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
+
 }
