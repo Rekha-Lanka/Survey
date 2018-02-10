@@ -506,5 +506,12 @@ public class PersonDetailsActivity extends AppCompatActivity {
         Upload ui = new Upload();
         ui.execute(bm);
     }
+    @Override
+    public void onBackPressed() {
+        Intent i=new Intent(PersonDetailsActivity.this,MainSurveyActivity.class);
+        startActivity(i);
+        super.onBackPressed();
+    }
+
 
 }

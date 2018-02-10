@@ -185,17 +185,6 @@ boolean is_mob_number=false;
                 super.onPostExecute(s);
                 loading.dismiss();
                 Toast.makeText(getApplicationContext(),"Successfully inserted",Toast.LENGTH_LONG).show();
-//                try {
-//                    JSONObject jsonObject = new JSONObject(s);
-//                    String id = jsonObject.getString("result");
-//                    resulttv=(TextView)findViewById(R.id.result);
-//                    resulttv.append("Unique id is: "+id);
-//                    next.setEnabled(true);
-//                    loading.dismiss();
-//
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
 
             }
             @Override
@@ -208,18 +197,6 @@ boolean is_mob_number=false;
                 oemail=etoemail.getText().toString();
                 sharedPreferences = getSharedPreferences("personuniqueid",MODE_PRIVATE);
                 String unique = sharedPreferences.getString("uniqueid",null);
-//                sharedPreferences = getSharedPreferences("uniquesurveyid",MODE_PRIVATE);
-//                   String unique = sharedPreferences.getString("surveyid",null);
-                //Bitmap bitmap = params[0];
-                // bm = params[5];
-//                shre =  getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-//                if (shre.contains(key))
-//                {//save required image
-//                    String u=shre.getString(key, "");
-//                    bm=decodeBase64(u);
-//                    //profilepic.setImageBitmap(thumbnail);
-//                }
-//                upload= getStringImage(bitmap);
                HashMap<String,String> data = new HashMap<>();
                 data.put(NAME_KEY,oname);
                 data.put(FATHERNAME_KEY,ofname);

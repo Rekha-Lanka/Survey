@@ -1,5 +1,6 @@
 package com.delhijal.survey;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -32,6 +33,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.delhijal.survey.NewSurvey.OwnerDetailsActivity;
 import com.delhijal.survey.NewSurvey.PersonDetailsActivity;
 import com.delhijal.survey.UpdateSurvey.MainUpdateActivity;
 import com.delhijal.survey.Utils.NetworkStatus;
@@ -40,6 +42,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,11 +53,13 @@ public class MainSurveyActivity extends AppCompatActivity
     LinearLayout newll,updatell,cmpltll;
     SharedPreferences pref;
     TextView uname,mobileno,today,total;
+    private ArrayList<String> counts = new ArrayList<String>();
     NetworkStatus ns;
     RequestHandler rh = new RequestHandler();
     public static final String UPLOAD_URL = "http://www.globalm.co.in/survey/insertsurvey.php";
     public static final String TOTAL_KEY = "total";
     public static final String CURRENT_KEY = "current";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,8 +110,7 @@ public class MainSurveyActivity extends AppCompatActivity
 
             }
         });
-        getcompletesurvey();
-//        cmpltll.setOnClickListener(new View.OnClickListener() {
+        new GetSurvey().execute();//        cmpltll.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
 //
@@ -132,30 +138,6 @@ public class MainSurveyActivity extends AppCompatActivity
         }
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.home_menu, menu);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle action bar item clicks here. The action bar will
-//        // automatically handle clicks on the Home/Up button, so long
-//        // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-//
-//        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_home) {
-//            Intent i=new Intent(this,MainSurveyActivity.class);
-//            startActivity(i);
-//            return true;
-//        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -182,80 +164,63 @@ public class MainSurveyActivity extends AppCompatActivity
         return true;
     }
 
-    private void getcompletesurvey() {
-        //String urmail="loginuname";
-        // donorprogress.setVisibility(View.VISIBLE);
-        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-        //String uri = "http://" + address + "/myFolder/page.php?" + value1 + "=" + value2;
-        //String uri = String.format("http://somesite.com/some_endpoint.php?param1=%1$s&param2=%2$s", num1, num2);
-        String serverURL = String.format("http://www.globalm.co.in/survey/insertsurvey.php");
-        final StringRequest getRequest = new StringRequest(Request.Method.GET, serverURL,
-                new com.android.volley.Response.Listener<String>() {
+    private class GetSurvey extends AsyncTask<Void,Void,ArrayList<String>>{
+        ProgressDialog loading;
+        String response = null;
+
+        @Override
+
+        protected void onPreExecute () {
+            super.onPreExecute();
+            loading = ProgressDialog.show(MainSurveyActivity.this, "Uploading...", null,true,true);
+
+        }
 
 
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONObject jsonObj = new JSONObject(response);
-                            //JSONArray contacts = jsonObj.getJSONArray("result");
-                            //HashMap<String,String> data = new HashMap<>();
-                            String totalsurvey=jsonObj.getString(TOTAL_KEY);
-                            String currentsurvey=jsonObj.getString(CURRENT_KEY);
-                            today.setText(totalsurvey);
-                            total.setText(totalsurvey);
-                           // for (int i = 0; i < contacts.length(); i++) {
-                                //columns:  fullname,email,password,mobile,gender,address,bloodgroup,age,city,status
-//                                JSONObject c = contacts.getJSONObject(i);
-//                                String fullname = c.getString("fullname");
-//                                String email = c.getString("email");
-//                                String password = c.getString("password");
-//                                String mobile = c.getString("mobile");
-//                                String gender = c.getString("gender");
-//                                String address = c.getString("address");
-//                                String bloodgroup = c.getString("bloodgroup");
-//                                String age=c.getString("age");
-//                                String city=c.getString("city");
-//                                String status=c.getString("status");
-                                //String status=c.getString("status");
-//                                etViewName.setText(fullname);
-//                                textViewEmail.setText(email);
-//                                etPhoneno.setText(mobile);
-//                                etAddress.setText(address);
-//                                etAge.setText(age);
-//                                etcity.setText(city);
-//                                etbloodgroup.setText(bloodgroup);
-//                                etgender.setText(gender);
-//                                etstatus.setText(status);
-//                        validation(name,pass);
-//                                donordata.add(new DonorBean(id,fullname,email,password,mobile,gender,address,bloodgroup,age,city));
-//                                donorListAdapter = new DonorListAdapter(DonarActivity.this,donordata);
-//                                donorrecycle.setAdapter(donorListAdapter);
-//                                donorrecycle.setLayoutManager(new LinearLayoutManager(DonarActivity.this));
-//                                donorprogress.setVisibility(View.GONE);
-                            } catch (JSONException e1) {
-                            e1.printStackTrace();
-                        }
-//                    } catch (final JSONException e) {
-//                            Log.e(TAG, "Json parsing error: " + e.getMessage());
-//                            e.printStackTrace();
-//                        }
+        @Override
 
-                    }
-                },
-                new com.android.volley.Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // error
-                        Toast.makeText(getApplicationContext(), "" + error, Toast.LENGTH_SHORT).show();
-                    }
+        protected ArrayList<String> doInBackground (Void...voids){
+            RequestHandler sh = new RequestHandler();
+            String[] res=null;
+
+            // Making a request to url and getting response
+
+        String jsonStr = sh.makeServiceCall("http://www.globalm.co.in/survey/getnosurveys.php");
+
+        if (jsonStr != null) {
+            try {
+
+                JSONObject jsonObj = new JSONObject(jsonStr);
+
+                JSONArray contacts = jsonObj.getJSONArray("result");
+
+                for (int i = 0; i < contacts.length(); i++) {
+
+                    JSONObject c = contacts.getJSONObject(i);
+                    String totalsurvey = c.getString("total");
+                    String currentsurvey = c.getString("current");
+                    counts.add(totalsurvey);
+                    counts.add(currentsurvey);
                 }
-        ){
-            @Override
-            protected Map<String, String> getParams() {
-                Toast.makeText(getApplicationContext(), "Successful", Toast.LENGTH_SHORT).show();
-                return null;
+
+            } catch (final JSONException e) {
+                Log.e("Error","Exception");
             }
-        };
-        queue.add(getRequest);
+        } else {
+
+            Toast.makeText(getApplicationContext(), "Couldn't get json from server", Toast.LENGTH_SHORT).show();
+        }
+        return counts;
+    }
+
+        @Override
+        protected void onPostExecute(final ArrayList<String> ss){
+            super.onPostExecute(ss);
+            today.setText(ss.get(1));
+            total.setText(ss.get(0));
+            loading.dismiss();
+
+    }
+
     }
 }
