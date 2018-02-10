@@ -110,6 +110,14 @@
                android:text="Completed Survey"/>
 
            </LinearLayout>
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="vertical">
+               <LinearLayout
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:orientation="horizontal">
            <TextView
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
@@ -118,14 +126,41 @@
                android:layout_margin="20dp"
                android:textColor="#fff"
                android:text="Today :"/>
-           <TextView
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:textSize="20dp"
-               android:textStyle="bold|italic"
-               android:layout_margin="20dp"
-               android:textColor="#fff"
-               android:text="Total :"/>
+                   <TextView
+                       android:id="@+id/todaytv"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:textSize="20dp"
+                       android:textStyle="bold|italic"
+                       android:layout_marginLeft="10dp"
+                       android:layout_marginTop="20dp"
+                       android:textColor="#fff"
+                       android:text="hiiii"/>
+               </LinearLayout>
+               <LinearLayout
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:orientation="horizontal">
+                   <TextView
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:textSize="20dp"
+                       android:textStyle="bold|italic"
+                       android:layout_margin="20dp"
+                       android:textColor="#fff"
+                       android:text="Total :"/>
+                   <TextView
+                       android:id="@+id/totaltv"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:textSize="20dp"
+                       android:textStyle="bold|italic"
+                       android:layout_marginLeft="10dp"
+                       android:layout_marginTop="20dp"
+                       android:textColor="#fff"
+                       android:text="hiiii"/>
+               </LinearLayout>
+           </LinearLayout>
        </LinearLayout>
    </LinearLayout>
 </android.support.constraint.ConstraintLayout>
