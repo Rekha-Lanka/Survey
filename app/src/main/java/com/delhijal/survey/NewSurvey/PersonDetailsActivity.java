@@ -478,6 +478,9 @@ public class PersonDetailsActivity extends AppCompatActivity {
                 pfname=efname.getText().toString();
                 pmobile=emobile.getText().toString();
                 pemail=eemail.getText().toString();
+                SharedPreferences pref = getSharedPreferences("userdetails",MODE_PRIVATE);
+                String agentname = pref.getString("username",null);
+                String agentmobile = pref.getString("mobileno",null);
                 Bitmap bitmap = params[0];
                // bm = params[5];
 //                shre =  getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
@@ -495,6 +498,8 @@ public class PersonDetailsActivity extends AppCompatActivity {
                 data.put(MOBILE_KEY,pmobile);
                 data.put(EMAIL_KEY,pemail);
                 data.put(UPLOAD_KEY,upload);
+                data.put("agentname",agentname);
+                data.put("agentmobile",agentmobile);
                 String result = rh.sendPostRequest(UPLOAD_URL,data);
                 return result;
 

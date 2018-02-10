@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,9 +24,11 @@ import com.delhijal.survey.MainSurveyActivity;
 import com.delhijal.survey.R;
 import com.delhijal.survey.RequestHandler;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -44,6 +47,7 @@ boolean is_mob_number=false;
     public static final String EMAIL_KEY = "email";
     public static final String UPLOAD_KEY = "id";
     RequestHandler rh = new RequestHandler();
+    private ArrayList<String> counts = new ArrayList<String>();
 
     public static final String MyPREFERENCES = "MyPre" ;//file name
     SharedPreferences personpref;
@@ -62,11 +66,13 @@ boolean is_mob_number=false;
        onext=(Button)findViewById(R.id.onext);
        osubmit=(Button)findViewById(R.id.osubmit);
        oprevious=(Button)findViewById(R.id.oprevious);
+
         sharedPreferences = getSharedPreferences("persondetails",MODE_PRIVATE);
         final String ownername = sharedPreferences.getString("personname",null);
         final String ownerfname = sharedPreferences.getString("pfathername",null);
         final String ownermno = sharedPreferences.getString("mobilenumber",null);
         final String owneremail = sharedPreferences.getString("personemail",null);
+
         spinnerDetails.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -213,5 +219,6 @@ boolean is_mob_number=false;
         String name = "hi";
         ui.execute(name);
     }
+
 
 }
