@@ -269,7 +269,7 @@ public class PersonDetailsActivity extends AppCompatActivity {
         builder.setItems(items, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int item) {
-                boolean result= CameraUtility.checkPermission(PersonDetailsActivity.this);
+                boolean result= true;
 
                 if (items[item].equals("Take Photo")) {
                     userChoosenTask ="Take Photo";
@@ -307,85 +307,34 @@ public class PersonDetailsActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == SELECT_FILE){
+        if (requestCode == SELECT_FILE && resultCode == RESULT_OK && data != null && data.getData() != null) {
+
                 //onSelectFromGalleryResult(data);
               bm=null;
                 if (data != null) {
                     try {
                         filePath = data.getData();
                         bm = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), filePath);
+                        propertypic.setImageBitmap(bm);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                     //storeImage(bm);
-                    propertypic.setImageBitmap(bm);
+
 
                 }
             }
 
-            else if (requestCode == REQUEST_CAMERA) {
+            else if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CAMERA) {
                 //onCaptureImageResult(data);
                 bm = (Bitmap) data.getExtras().get("data");
                 //storeImage(bm);
                 propertypic.setImageBitmap(bm);
 
             }
-        }
+
     }
-//    private void storeImage(Bitmap thumbnail) {
-//        // Removing image saved earlier in shared prefernces
-//       // PreferenceManager.getDefaultSharedPreferences(this).edit().clear().apply();
-//        createFolder();
-//        // this code is use to generate random number and add to file
-//        // name so that each file should be different
-//        Random generator = new Random();
-//        int n = 10000;
-//        n = generator.nextInt(n);
-//        String fname = "Image-"+ n +".jpg";
-//
-//        // set the file path
-//        // sdcard/PictureFolder/ is the folder created in create folder method
-//        String filePath = "/sdcard/PictureFolder/"+fname;
-//        // the rest of the code is for saving the file to filepath mentioned above
-//        FileOutputStream fileOutputStream = null;
-//        try {
-//            fileOutputStream = new FileOutputStream(filePath);
-//        } catch (FileNotFoundException e) {
-//            // TODO Auto-generated catch block
-//            e.printStackTrace();
-//        }
-//
-//        BufferedOutputStream bos = new BufferedOutputStream(fileOutputStream);
-//
-//        //choose another format if PNG doesn't suit you
-//        thumbnail.compress(Bitmap.CompressFormat.PNG, 100, bos);
-//        shre =  getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-//        SharedPreferences.Editor editor = shre.edit();
-//        editor.putString(key,encodeTobase64(thumbnail));
-//        editor.commit();
-//        try {
-//            bos.flush();
-//        } catch (IOException e) {
-//            // TODO Auto-generated catch block
-//            e.printStackTrace();
-//        }
-//        try {
-//            bos.close();
-//        } catch (IOException e) {
-//            // TODO Auto-generated catch block
-//            e.printStackTrace();
-//        }
-//
-//    }
-//    public void createFolder()
-//    {
-//        // here PictureFolder is the folder name you can change it offcourse
-//        String RootDir = Environment.getExternalStorageDirectory()
-//                + File.separator + "PictureFolder";
-//        File RootFile = new File(RootDir);
-//        RootFile.mkdir();
-//    }
+
 
     public String getStringImage(Bitmap bmp)
     {
