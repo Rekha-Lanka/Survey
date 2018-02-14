@@ -27,7 +27,7 @@ public class MainUpdateActivity extends AppCompatActivity {
      Button submit;
      EditText etuniqueid;
      String uniqueid;
-     SharedPreferences sharedpref;
+     SharedPreferences sharedpref,sharedpref1;
      SharedPreferences.Editor editor;
     private ArrayList<String> counts = new ArrayList<String>();
     @Override
@@ -87,7 +87,11 @@ public class MainUpdateActivity extends AppCompatActivity {
             String unique = sharedpref.getString("uniqueid",null);
             // Making a request to url and getting response
 
-            String jsonStr = sh.makeServiceCall("http://www.globalm.co.in/survey/getowner.php?id="+uniqueid);
+            sharedpref1 = getSharedPreferences("userdetails",MODE_PRIVATE);
+            String loginuname = sharedpref1.getString("username",null);
+            String loginmobileno = sharedpref1.getString("mobileno",null);
+
+            String jsonStr = sh.makeServiceCall("http://www.globalm.co.in/survey/getowner.php?id="+uniqueid+"&uname="+loginuname+"&umobile="+loginmobileno);
             if (jsonStr != null) {
                 try {
 
@@ -124,15 +128,16 @@ public class MainUpdateActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(final ArrayList<String> ss){
             super.onPostExecute(ss);
+            if(ss.size()>0){
             sharedpref = getSharedPreferences("persondetails", MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedpref.edit();
 //                    String pusername = ename.getText().toString();
 //                    String pfathername=
 //                    String pno = emobile.getText().toString();
-            editor.putString("personname", counts.get(0));
-            editor.putString("pfathername",counts.get(1));
-            editor.putString("mobilenumber",counts.get(2));
-            editor.putString("personemail",counts.get(3));
+            editor.putString("personname", ss.get(0));
+            editor.putString("pfathername",ss.get(1));
+            editor.putString("mobilenumber",ss.get(2));
+            editor.putString("personemail",ss.get(3));
 
 //            etoname.setText(counts.get(0));
 //            etofname.setText(counts.get(1));
@@ -143,7 +148,11 @@ public class MainUpdateActivity extends AppCompatActivity {
 //            total.setText(ss.get(0));
            // loading.dismiss();
             Intent i=new Intent(MainUpdateActivity.this, OwnerDetailsActivity.class);
-            startActivity(i);
+            startActivity(i);}
+            else
+            {
+                Toast.makeText(getApplicationContext(),"Sorry!,No Data found with these details",Toast.LENGTH_LONG).show();
+            }
 
         }
 
