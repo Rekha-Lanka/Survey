@@ -119,7 +119,6 @@ public class MainUpdateActivity extends AppCompatActivity {
                     Log.e("Error","Exception");
                 }
             } else {
-
                 Toast.makeText(getApplicationContext(), "Couldn't get json from server", Toast.LENGTH_SHORT).show();
             }
             return counts;

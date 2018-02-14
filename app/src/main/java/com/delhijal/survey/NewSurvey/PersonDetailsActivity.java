@@ -2,6 +2,7 @@ package com.delhijal.survey.NewSurvey;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -17,8 +18,11 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
+import android.provider.Settings;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -36,6 +40,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.delhijal.survey.MainSurveyActivity;
+import com.delhijal.survey.Network.ConnectivityReceiver;
+import com.delhijal.survey.Network.MyApplication;
 import com.delhijal.survey.R;
 import com.delhijal.survey.RequestHandler;
 import com.delhijal.survey.Utils.CameraUtility;
@@ -58,7 +64,7 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class PersonDetailsActivity extends AppCompatActivity {
+public class PersonDetailsActivity extends AppCompatActivity implements ConnectivityReceiver.ConnectivityReceiverListener{
     private String userChoosenTask;
     ImageView propertypic;
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
@@ -90,6 +96,8 @@ public class PersonDetailsActivity extends AppCompatActivity {
     public static final String UPLOAD_URL = "http://www.globalm.co.in/survey/insertsurvey.php";
     Bitmap bm;
     NetworkInfo wifiCheck;
+    Handler h;
+    private Runnable myRunnable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,20 +115,26 @@ public class PersonDetailsActivity extends AppCompatActivity {
         imagegalleryll=(LinearLayout)findViewById(R.id.picll);
          browse=(Button)findViewById(R.id.browse);
         propertypic=(ImageView)findViewById(R.id.propertypreview);
-//        ConnectivityManager connectionManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-//        wifiCheck = connectionManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-//        //textView = (TextView) findViewById(R.id.wifi_connection);
-//        if (wifiCheck.isConnected()) {
-//            // Do whatever here
-//           Toast.makeText(getApplicationContext(),"WiFi is connected",Toast.LENGTH_LONG).show();
-//            //textView.setText("WiFi is Connected");
-//
-//        } else {
-//            Toast.makeText(getApplicationContext(),"WiFi is not connected",Toast.LENGTH_LONG).show();
-//
-//        }
 
-      //  if(msa.isNetworkAvailable(getApplicationContext()))){
+        checkConnection();
+        if(ConnectivityReceiver.isConnected()==false){
+            displayMobileDataSettingsDialog();
+
+        }
+//        h = new Handler();
+//        final int delay=3000;
+//        h.postDelayed(myRunnable = new Runnable(){
+//            public void run(){
+//                ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+//                NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+//                if (networkInfo != null && networkInfo.isConnected()) {
+//                    changeTextStatus(true);
+//                } else {
+//                    changeTextStatus(false);
+//                }
+//                h.postDelayed(this, delay);
+//            }
+//        }, delay);
             next.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -168,6 +182,7 @@ public class PersonDetailsActivity extends AppCompatActivity {
                         editor.putString("personemail", pemail);
                         editor.commit();
                         //Toast.makeText(getApplicationContext(),"welcome",Toast.LENGTH_LONG).show();
+                        checkConnection();
                         upload();
 
                     }
@@ -193,6 +208,33 @@ public class PersonDetailsActivity extends AppCompatActivity {
             });
        // }
 
+    }
+
+    private void checkConnection() {
+        boolean isConnected = ConnectivityReceiver.isConnected();
+        showSnack(isConnected);
+    }
+    // Showing the status in Snackbar
+    private void showSnack(boolean isConnected) {
+        String message;
+        int color;
+        if (isConnected) {
+            message = "Good! Connected to Internet";
+            color = Color.WHITE;
+        } else {
+            message = "Sorry! Not connected to internet";
+            color = Color.RED;
+        }
+
+        Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content),message , Snackbar.LENGTH_LONG);
+       // snackbar.show();
+//        Snackbar snackbar = Snackbar
+//                .make(findViewById(R.id.fab), message, Snackbar.LENGTH_LONG);
+
+        View sbView = snackbar.getView();
+        TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+        textView.setTextColor(color);
+        snackbar.show();
     }
     public boolean ismobileno() {
 
@@ -394,6 +436,11 @@ public class PersonDetailsActivity extends AppCompatActivity {
             protected void onPreExecute() {
                 super.onPreExecute();
                 loading = ProgressDialog.show(PersonDetailsActivity.this, "Uploading...", null,true,true);
+                if(ConnectivityReceiver.isConnected()==false){
+                    loading.dismiss();
+                    displayMobileDataSettingsDialog();
+
+                }
             }
 
             @Override
@@ -468,4 +515,57 @@ public class PersonDetailsActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // register connection status listener
+        MyApplication.getInstance().setConnectivityListener(this);
+    }
+
+    public void changeTextStatus(boolean isConnected) {
+
+        // Change status according to boolean value
+        if (isConnected) {
+
+        } else {
+            Toast.makeText(getApplicationContext(),"No Network Connection",Toast.LENGTH_LONG).show();
+            //Snackbar.make(toolbar, "No network connection.",Snackbar.LENGTH_LONG).show();
+
+        }
+    }
+
+    @Override
+    public void onNetworkConnectionChanged(boolean isConnected) {
+        showSnack(isConnected);
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
+    public  AlertDialog displayMobileDataSettingsDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("No Network Connection");
+        //builder.setMessage(message);
+        builder.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+//                Intent intent = new Intent(Settings.ACTION_DATA_ROAMING_SETTINGS);
+//                startActivity(intent);
+                startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+                finish();
+
+            }
+        });
+        builder.show();
+
+        return builder.create();
+    }
 }
