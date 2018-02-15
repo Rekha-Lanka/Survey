@@ -523,17 +523,19 @@ public class PersonDetailsActivity extends AppCompatActivity implements Connecti
         MyApplication.getInstance().setConnectivityListener(this);
     }
 
-    public void changeTextStatus(boolean isConnected) {
 
-        // Change status according to boolean value
-        if (isConnected) {
 
-        } else {
-            Toast.makeText(getApplicationContext(),"No Network Connection",Toast.LENGTH_LONG).show();
-            //Snackbar.make(toolbar, "No network connection.",Snackbar.LENGTH_LONG).show();
-
-        }
-    }
+//    public void changeTextStatus(boolean isConnected) {
+//
+//        // Change status according to boolean value
+//        if (isConnected) {
+//
+//        } else {
+//            Toast.makeText(getApplicationContext(),"No Network Connection",Toast.LENGTH_LONG).show();
+//            //Snackbar.make(toolbar, "No network connection.",Snackbar.LENGTH_LONG).show();
+//
+//        }
+//    }
 
     @Override
     public void onNetworkConnectionChanged(boolean isConnected) {
