@@ -227,8 +227,6 @@ public class MainSurveyActivity extends AppCompatActivity
 
 
     }
-
-
     }
     public AlertDialog displayMobileDataSettingsDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
