@@ -105,8 +105,8 @@ public class MainUpdateActivity extends AppCompatActivity {
                         String ownername = d.getString("name");
 
                         String ownerfather = d.getString("father");
-                        String owneremail=d.getString("mobile");
-                        String ownermobile=d.getString("email");
+                        String owneremail=d.getString("email");
+                        String ownermobile=d.getString("mobile");
                         counts.add(ownername);
                         counts.add(ownerfather);
                         counts.add(ownermobile);
