@@ -112,7 +112,10 @@ public class SubmitDetailsActivity extends AppCompatActivity {
                 } else if (washrooms.equals("")){
                     etwashrooms.setError("Enter no of washrooms");
                     etwashrooms.setFocusable(true);
-                } else {
+                } else if((nameplatepreview.getDrawable() == null)||(meterpreview.getDrawable() == null)){
+                   Toast.makeText(getApplicationContext(),"images shouldn't be empty",Toast.LENGTH_LONG).show();
+                }
+                else {
                     uploadfinaldetails();
                 }
 

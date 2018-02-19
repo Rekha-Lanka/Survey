@@ -124,10 +124,12 @@ boolean is_mob_number=false;
                }else if(omobileno.equals("")|| !ismobileno()) {
                    etomobileno.setError("Enter valid Mobile no");
                    etomobileno.setFocusable(true);
-               }else if(oemail.equals("")|| !oemail.matches(emailPattern)) {
-                   etoemail.setError("Enter valid email");
-                   etoemail.setFocusable(true);
-               } else {
+               }
+//               else if(oemail.equals("")|| !oemail.matches(emailPattern)) {
+//                   etoemail.setError("Enter valid email");
+//                   etoemail.setFocusable(true);
+//               }
+               else {
                    uploadOwnerDetails();
                }
            }

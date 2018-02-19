@@ -162,10 +162,14 @@ public class PersonDetailsActivity extends AppCompatActivity implements Connecti
                     } else if (pmobile.equals("") || !ismobileno()) {
                         emobile.setError("Enter valid Mobile no");
                         emobile.setFocusable(true);
-                    } else if (pemail.equals("") || !pemail.matches(emailPattern)) {
-                        eemail.setError("Enter valid email");
-                        eemail.setFocusable(true);
-                    } else if (spinnerDetails.getSelectedItem().toString().trim().equalsIgnoreCase("Data provided by - Tap Here")) {
+                   } else if(propertypic.getDrawable() == null){
+                       Toast.makeText(getApplicationContext(),"Please insert property image",Toast.LENGTH_LONG).show();
+                    }
+// else if (pemail.equals("") || !pemail.matches(emailPattern)) {
+//                        eemail.setError("Enter valid email");
+//                        eemail.setFocusable(true);
+//                    }
+                      else if (spinnerDetails.getSelectedItem().toString().trim().equalsIgnoreCase("Data provided by - Tap Here")) {
                         TextView errorText = (TextView) spinnerDetails.getSelectedView();
                         errorText.setError("select catogery");
                         errorText.setTextColor(Color.RED);//just to highlight that this is an error

@@ -62,8 +62,9 @@
                         android:layout_marginLeft="20dp"
                         android:ems="10"
                         android:hint="Kitchens"
-                        android:inputType="text"
+                        android:inputType="number"
                         android:padding="10dp"
+                        android:maxLength="2"
                         android:singleLine="true"
                         android:textColor="#000"
                         android:textSize="18dp" />
@@ -84,8 +85,9 @@
                         android:layout_marginRight="20dp"
                         android:ems="10"
                         android:hint="Wash Rooms"
-                        android:inputType="text"
+                        android:inputType="number"
                         android:padding="10dp"
+                        android:maxLength="2"
                         android:singleLine="true"
                         android:textColor="#000"
                         android:textSize="18dp" />

@@ -109,7 +109,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:ems="10"
-                android:hint="Owner Email Address"
+                android:hint="Owner Email Address not mandatory"
                 android:inputType="text"
                 android:padding="10dp"
                 android:singleLine="true"
