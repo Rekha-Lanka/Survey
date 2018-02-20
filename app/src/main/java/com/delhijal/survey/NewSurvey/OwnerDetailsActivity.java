@@ -105,6 +105,7 @@ boolean is_mob_number=false;
            public void onClick(View v) {
                Intent i=new Intent(OwnerDetailsActivity.this,PropertyDetailsActivity.class);
                startActivity(i);
+               finish();
 
            }
        });
@@ -140,6 +141,7 @@ boolean is_mob_number=false;
             public void onClick(View v) {
                 Intent i=new Intent(OwnerDetailsActivity.this,PersonDetailsActivity.class);
                 startActivity(i);
+                finish();
             }
         });
     }

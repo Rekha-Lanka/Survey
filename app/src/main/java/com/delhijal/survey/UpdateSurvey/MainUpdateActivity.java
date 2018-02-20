@@ -8,6 +8,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,6 +18,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.delhijal.survey.MainSurveyActivity;
 import com.delhijal.survey.NewSurvey.OwnerDetailsActivity;
 import com.delhijal.survey.R;
 import com.delhijal.survey.RequestHandler;
@@ -43,54 +46,22 @@ public class MainUpdateActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main_update);
         spuniqueid=(Spinner)findViewById(R.id.spuniqueid);
         submit=(Button)findViewById(R.id.updatesubmitbtn);
-//        sharedPreferences = getSharedPreferences("persondetails",MODE_PRIVATE);
-//        final String ownername = sharedPreferences.getString("personname",null);
-//        final String ownerfname = sharedPreferences.getString("pfathername",null);
-//        final String ownermno = sharedPreferences.getString("mobilenumber",null);
-//        final String owneremail = sharedPreferences.getString("personemail",null);
+
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              // uniqueid=etuniqueid.getText().toString();
-               // uniqueid=spinnerbloodgroup.getSelectedItem().toString();
-//               if(uniqueid.equals("")||uniqueid.equals(null)){
-//                   etuniqueid.setError("Enter valid Unique id");
-//                   etuniqueid.setFocusable(true);
-//               }
-             //  else{
-                    uniqueid = spuniqueid.getSelectedItem().toString();
+
+                submit.setEnabled(false);
+                uniqueid = spuniqueid.getSelectedItem().toString();
                    sharedpref = getSharedPreferences("personuniqueid", MODE_PRIVATE);
                    editor = sharedpref.edit();
                    editor.putString("uniqueid",uniqueid);
                    editor.commit();
                    new ReloadOwnerDetails().execute();
-//                   sharedPreferences = getSharedPreferences("uniquesurveyid",MODE_PRIVATE);
-//                   String unique = sharedPreferences.getString("surveyid",null);
-
-                //   }
 
             }
         });
         new ReloadIdDetails().execute();
-        /*spuniqueid.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                String item=spuniqueid.getSelectedItem().toString();
-                Toast.makeText(getApplicationContext(), item,
-                        Toast.LENGTH_LONG).show();
-
-                Log.e("Item",item);
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });*/
-
-
 
     }
 
@@ -159,24 +130,16 @@ public class MainUpdateActivity extends AppCompatActivity {
             if(ss.size()>0){
             sharedpref = getSharedPreferences("persondetails", MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedpref.edit();
-//                    String pusername = ename.getText().toString();
-//                    String pfathername=
-//                    String pno = emobile.getText().toString();
+
             editor.putString("personname", ss.get(0));
             editor.putString("pfathername",ss.get(1));
             editor.putString("mobilenumber",ss.get(2));
             editor.putString("personemail",ss.get(3));
-
-//            etoname.setText(counts.get(0));
-//            etofname.setText(counts.get(1));
-//            etomobileno.setText(counts.get(2));
-//            etoemail.setText(counts.get(3));
-            editor.commit();
-//            today.setText(ss.get(1));
-//            total.setText(ss.get(0));
-           // loading.dismiss();
+             editor.commit();
             Intent i=new Intent(MainUpdateActivity.this, OwnerDetailsActivity.class);
-            startActivity(i);}
+            startActivity(i);
+            finish();
+            }
             else
             {
                 Toast.makeText(getApplicationContext(),"Sorry!,No Data found with these details",Toast.LENGTH_LONG).show();
@@ -186,8 +149,6 @@ public class MainUpdateActivity extends AppCompatActivity {
     }
 
     private class ReloadIdDetails extends AsyncTask<Void,Void,ArrayList<String>> {
-       // ProgressDialog loading;
-       // String response = null;
 
         @Override
 
@@ -216,9 +177,6 @@ public class MainUpdateActivity extends AppCompatActivity {
                         JSONObject d = details.getJSONObject(i);
                         String myid= d.getString("sid");
                         list.add(myid);
-
-
-
                     }
 
                 } catch (final JSONException e) {
@@ -242,6 +200,29 @@ public class MainUpdateActivity extends AppCompatActivity {
             dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spuniqueid.setAdapter(dataAdapter);
         }
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.home_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_home) {
+            Intent i=new Intent(this,MainSurveyActivity.class);
+            startActivity(i);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 }
