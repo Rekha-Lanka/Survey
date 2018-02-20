@@ -84,25 +84,30 @@ public class MainSurveyActivity extends AppCompatActivity
         }
         uname.setText(loginuname);
         mobileno.setText(loginmobileno);
-        newll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-             Intent i=new Intent(MainSurveyActivity.this, PersonDetailsActivity.class);
-             startActivity(i);
-            }
-        });
+        try {
+            newll.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(MainSurveyActivity.this, PersonDetailsActivity.class);
+                    startActivity(i);
+                }
+            });
 
-        updatell.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            updatell.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-                   Intent i = new Intent(MainSurveyActivity.this, MainUpdateActivity.class);
-                   startActivity(i);
+                    Intent i = new Intent(MainSurveyActivity.this, MainUpdateActivity.class);
+                    startActivity(i);
 
-            }
-        });
-        new GetSurvey().execute();
+                }
+            });
 
+            new GetSurvey().execute();
+
+        }catch (Exception e){
+            Log.e("ERROR","EXCEPTION");
+        }
     }
 
     @Override

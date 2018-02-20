@@ -47,14 +47,12 @@
         android:textColor="@color/colorAccent"
         android:layout_height="wrap_content"
         android:text="Enter Survey id :"/>
-    <EditText
-        android:id="@+id/etuniqueid"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_weight="2.5"
-        android:maxLength="15"
-        android:inputType="number"/>
+    <Spinner
+        android:id="@+id/spuniqueid"
+        android:layout_width="120dp"
+        android:layout_marginTop="5dp"
+        android:theme="@style/mySpinnerItemStyle"
+        android:layout_height="wrap_content" />
 </LinearLayout>
     <Button
         android:id="@+id/updatesubmitbtn"
