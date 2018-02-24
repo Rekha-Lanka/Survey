@@ -121,20 +121,7 @@ public class PersonDetailsActivity extends AppCompatActivity implements Connecti
             displayMobileDataSettingsDialog();
 
         }
-//        h = new Handler();
-//        final int delay=3000;
-//        h.postDelayed(myRunnable = new Runnable(){
-//            public void run(){
-//                ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-//                NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-//                if (networkInfo != null && networkInfo.isConnected()) {
-//                    changeTextStatus(true);
-//                } else {
-//                    changeTextStatus(false);
-//                }
-//                h.postDelayed(this, delay);
-//            }
-//        }, delay);
+
             next.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -482,14 +469,7 @@ public class PersonDetailsActivity extends AppCompatActivity implements Connecti
                 String agentname = pref.getString("username",null);
                 String agentmobile = pref.getString("mobileno",null);
                 Bitmap bitmap = params[0];
-               // bm = params[5];
-//                shre =  getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-//                if (shre.contains(key))
-//                {//save required image
-//                    String u=shre.getString(key, "");
-//                    bm=decodeBase64(u);
-//                    //profilepic.setImageBitmap(thumbnail);
-//                }
+
                upload= getStringImage(bitmap);
                 HashMap<String,String> data = new HashMap<>();
                 data.put(PROVIDEBY_KEY,pcatogery);
@@ -526,20 +506,6 @@ public class PersonDetailsActivity extends AppCompatActivity implements Connecti
         // register connection status listener
         MyApplication.getInstance().setConnectivityListener(this);
     }
-
-
-
-//    public void changeTextStatus(boolean isConnected) {
-//
-//        // Change status according to boolean value
-//        if (isConnected) {
-//
-//        } else {
-//            Toast.makeText(getApplicationContext(),"No Network Connection",Toast.LENGTH_LONG).show();
-//            //Snackbar.make(toolbar, "No network connection.",Snackbar.LENGTH_LONG).show();
-//
-//        }
-//    }
 
     @Override
     public void onNetworkConnectionChanged(boolean isConnected) {

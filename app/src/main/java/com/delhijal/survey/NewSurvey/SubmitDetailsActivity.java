@@ -117,6 +117,7 @@ public class SubmitDetailsActivity extends AppCompatActivity {
                 }
                 else {
                     uploadfinaldetails();
+
                 }
 
             }
@@ -341,6 +342,8 @@ public class SubmitDetailsActivity extends AppCompatActivity {
                 super.onPostExecute(s);
                 loading.dismiss();
                 Toast.makeText(getApplicationContext(),"Successfully inserted",Toast.LENGTH_LONG).show();
+                Intent i=new Intent(SubmitDetailsActivity.this,PersonDetailsActivity.class);
+                startActivity(i);
 
             }
             @Override
@@ -375,6 +378,7 @@ public class SubmitDetailsActivity extends AppCompatActivity {
 
         UploadDetails ui = new UploadDetails();
         ui.execute(bm1,bm2);
+
     }
 
 }

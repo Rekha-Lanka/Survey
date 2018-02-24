@@ -34,7 +34,7 @@ import java.util.List;
 public class MainUpdateActivity extends AppCompatActivity {
      Button submit;
      Spinner spuniqueid;
-     String uniqueid;
+     String uniqueid1,uniqueid;
      SharedPreferences sharedpref,sharedpref1;
      SharedPreferences.Editor editor;
     private ArrayList<String> counts = new ArrayList<String>();
@@ -52,7 +52,10 @@ public class MainUpdateActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 submit.setEnabled(false);
-                uniqueid = spuniqueid.getSelectedItem().toString();
+                uniqueid1 = spuniqueid.getSelectedItem().toString();
+                //Splitting the values
+                String[] parts = uniqueid1.split("-");
+                uniqueid= parts[0].trim();
                    sharedpref = getSharedPreferences("personuniqueid", MODE_PRIVATE);
                    editor = sharedpref.edit();
                    editor.putString("uniqueid",uniqueid);
@@ -103,7 +106,6 @@ public class MainUpdateActivity extends AppCompatActivity {
 
                         JSONObject d = details.getJSONObject(i);
                         String ownername = d.getString("name");
-
                         String ownerfather = d.getString("father");
                         String owneremail=d.getString("email");
                         String ownermobile=d.getString("mobile");
@@ -176,7 +178,9 @@ public class MainUpdateActivity extends AppCompatActivity {
                     for (int i = 0; i < details.length(); i++) {
                         JSONObject d = details.getJSONObject(i);
                         String myid= d.getString("sid");
-                        list.add(myid);
+                        String name=d.getString("name");
+                        list.add(myid+" - "+name);
+
                     }
 
                 } catch (final JSONException e) {
