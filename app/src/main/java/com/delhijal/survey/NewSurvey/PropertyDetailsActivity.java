@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -130,7 +131,23 @@ public class PropertyDetailsActivity extends AppCompatActivity implements Locati
                 }else if(pin.equals("")) {
                     etpin.setError("Enter pin number");
                     etpin.setFocusable(true);
-                }else {
+                } else if (propertyspinner.getSelectedItem().toString().trim().equalsIgnoreCase("Nature of property - Tap Here")) {
+                    TextView errorText = (TextView) propertyspinner.getSelectedView();
+                    errorText.setError("select catogery");
+                    errorText.setTextColor(Color.RED);//just to highlight that this is an error
+                    //errorText.setText("select catogery");//changes the selected item text to this
+                }else if (businessspinner.getSelectedItem().toString().trim().equalsIgnoreCase("Nature of business - Tap Here")) {
+                    TextView errorText = (TextView) businessspinner.getSelectedView();
+                    errorText.setError("select catogery");
+                    errorText.setTextColor(Color.RED);//just to highlight that this is an error
+                    //errorText.setText("select catogery");//changes the selected item text to this
+                }else if (recordspinner.getSelectedItem().toString().trim().equalsIgnoreCase("Choose- Tap Here")) {
+                    TextView errorText = (TextView) recordspinner.getSelectedView();
+                    errorText.setError("select catogery");
+                    errorText.setTextColor(Color.RED);//just to highlight that this is an error
+                    //errorText.setText("select catogery");//changes the selected item text to this
+                }
+                else {
                     uploadpropertydetails();
                 }
 

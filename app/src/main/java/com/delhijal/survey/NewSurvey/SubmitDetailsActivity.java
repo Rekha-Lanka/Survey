@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -114,6 +115,16 @@ public class SubmitDetailsActivity extends AppCompatActivity {
                     etwashrooms.setFocusable(true);
                 } else if((nameplatepreview.getDrawable() == null)||(meterpreview.getDrawable() == null)){
                    Toast.makeText(getApplicationContext(),"images shouldn't be empty",Toast.LENGTH_LONG).show();
+                }else if (sewerspinner.getSelectedItem().toString().trim().equalsIgnoreCase("Choose- Tap Here")) {
+                    TextView errorText = (TextView) sewerspinner.getSelectedView();
+                    errorText.setError("select catogery");
+                    errorText.setTextColor(Color.RED);//just to highlight that this is an error
+                    //errorText.setText("select catogery");//changes the selected item text to this
+                }else if (djbspinner.getSelectedItem().toString().trim().equalsIgnoreCase("Choose- Tap Here")) {
+                    TextView errorText = (TextView) djbspinner.getSelectedView();
+                    errorText.setError("select catogery");
+                    errorText.setTextColor(Color.RED);//just to highlight that this is an error
+                    //errorText.setText("select catogery");//changes the selected item text to this
                 }
                 else {
                     uploadfinaldetails();

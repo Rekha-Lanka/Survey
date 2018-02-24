@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -118,7 +119,28 @@ public class ConnectionDetailsActivity extends AppCompatActivity {
                  }else if(borewellsno.equals("")){
                      etborewellsno.setError("Enter no.of borewells");
                      etborewellsno.setFocusable(true);
-                 } else {
+                 }else if (sourcespinner.getSelectedItem().toString().trim().equalsIgnoreCase("Choose - Tap Here")) {
+                     TextView errorText = (TextView) sourcespinner.getSelectedView();
+                     errorText.setError("select catogery");
+                     errorText.setTextColor(Color.RED);//just to highlight that this is an error
+                     //errorText.setText("select catogery");//changes the selected item text to this
+                 }else if (djbspinner.getSelectedItem().toString().trim().equalsIgnoreCase("Choose - Tap Here")) {
+                     TextView errorText = (TextView) djbspinner.getSelectedView();
+                     errorText.setError("select catogery");
+                     errorText.setTextColor(Color.RED);//just to highlight that this is an error
+                     //errorText.setText("select catogery");//changes the selected item text to this
+                 }else if (billspinner.getSelectedItem().toString().trim().equalsIgnoreCase("Choose- Tap Here")) {
+                     TextView errorText = (TextView) billspinner.getSelectedView();
+                     errorText.setError("select catogery");
+                     errorText.setTextColor(Color.RED);//just to highlight that this is an error
+                     //errorText.setText("select catogery");//changes the selected item text to this
+                 }else if (chargespinner.getSelectedItem().toString().trim().equalsIgnoreCase("Choose- Tap Here")) {
+                     TextView errorText = (TextView) chargespinner.getSelectedView();
+                     errorText.setError("select catogery");
+                     errorText.setTextColor(Color.RED);//just to highlight that this is an error
+                     //errorText.setText("select catogery");//changes the selected item text to this
+                 }
+                 else {
                      uploadwaterdetails();
                  }
              }

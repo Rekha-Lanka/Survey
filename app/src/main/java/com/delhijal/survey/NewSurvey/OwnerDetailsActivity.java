@@ -38,7 +38,7 @@ Button onext,osubmit,oprevious;
 String oname,ofname,omobileno,oemail,catogery;
 EditText etoname,etofname,etomobileno,etoemail;
 SharedPreferences sharedPreferences;
-    Spinner spinnerDetails;
+Spinner spinnerDetails;
 boolean is_mob_number=false;
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     public static final String NAME_KEY = "name";
@@ -112,6 +112,7 @@ boolean is_mob_number=false;
        osubmit.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
+               catogery = spinnerDetails.getSelectedItem().toString();
                oname=etoname.getText().toString();
                ofname=etofname.getText().toString();
                omobileno=etomobileno.getText().toString();
@@ -126,10 +127,12 @@ boolean is_mob_number=false;
                    etomobileno.setError("Enter valid Mobile no");
                    etomobileno.setFocusable(true);
                }
-//               else if(oemail.equals("")|| !oemail.matches(emailPattern)) {
-//                   etoemail.setError("Enter valid email");
-//                   etoemail.setFocusable(true);
-//               }
+               else if (spinnerDetails.getSelectedItem().toString().trim().equalsIgnoreCase("Choose- Tap Here")) {
+                   TextView errorText = (TextView) spinnerDetails.getSelectedView();
+                   errorText.setError("select catogery");
+                   errorText.setTextColor(Color.RED);//just to highlight that this is an error
+                   //errorText.setText("select catogery");//changes the selected item text to this
+               }
                else {
                    uploadOwnerDetails();
                }
