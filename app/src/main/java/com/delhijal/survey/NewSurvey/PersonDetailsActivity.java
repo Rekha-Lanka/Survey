@@ -93,7 +93,7 @@ public class PersonDetailsActivity extends AppCompatActivity implements Connecti
     public static final String MyPREFERENCES = "MyPre" ;//file name
     SharedPreferences personpref;
     SharedPreferences.Editor editor;
-    public static final String UPLOAD_URL = "http://www.globalm.co.in/survey/insertsurvey.php";
+    public static final String UPLOAD_URL = "http://www.globalmrbs.com/survey/insertsurvey.php";
     Bitmap bm;
     NetworkInfo wifiCheck;
     Handler h;

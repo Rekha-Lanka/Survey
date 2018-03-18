@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:background="#fff">
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <!--<android.support.v7.widget.Toolbar-->
+        <!--android:id="@+id/toolbar"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="?attr/actionBarSize"-->
+        <!--android:background="?attr/colorPrimary"-->
+        <!--app:popupTheme="@style/AppTheme.PopupOverlay" />-->
+
+    </android.support.design.widget.AppBarLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:orientation="vertical">
+
+
+
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:gravity="center"
+                android:text="About Company"
+                android:textColor="#ca4969"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:orientation="vertical">
+
+
+                <LinearLayout android:layout_marginTop="5dip" android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_gravity="center">
+                    <TextView
+                        android:id="@+id/text2"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#9C0002"
+                        android:drawableEnd="@drawable/downarrowwhite"
+                        android:drawablePadding="10dp"
+                        android:drawableRight="@drawable/downarrowwhite"
+                        android:padding="5dip"
+                        android:text="About Company"
+                        android:textColor="#ffffff"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+                    <LinearLayout android:id="@+id/panel2" android:visibility="gone" android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_margin="2dip"
+                            android:text=" About Company :\n\n      FRATELLO INNOTECH is the fastest growing software developement company.The motto has always been timely service, best quality and optimum cost.\n\n      Always keep in touch with the customers through quality, performance, service and assistance. We value the trust and beliefs vested in us by our clients and professional contacts and provide a dedicated service with an honest and direct approach in all our dealings.\n\n      Our Company always encourage the new thoughts and creativity in developing applications to get the better solutions which meet new requirements, unarticulated needs, or existing market needs."
+                            android:padding="5dip"
+                            android:background="#9C0002"
+                            android:textSize="15dp"
+                            android:textColor="#ffffff"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout android:layout_marginTop="5dip" android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_gravity="center">
+                    <TextView android:text="Contact Us" android:drawableEnd="@drawable/downarrowwhite" android:drawableRight="@drawable/downarrowwhite" android:drawablePadding="10dp"  android:id="@+id/text3" android:padding="5dip"  android:background="#9C0002" android:textColor="#ffffff" android:textStyle="bold" android:textSize="18dp"  android:layout_width="fill_parent" android:layout_height="wrap_content" />
+                    <LinearLayout android:id="@+id/panel3" android:visibility="gone" android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_margin="2dip"
+                            android:text=" Address :\n\n LIG-630, KPHB Road No - 5,\n Dharma Reddy Colony Phase I,\n Kukatpally,\n Hyderabad, Telangana 500072.\n\n Phone: +91-90109 90285.\n"
+                            android:padding="5dip"
+                            android:background="#9C0002"
+                            android:textSize="16dp"
+                            android:textColor="#ffffff"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content" />
+                        <!--<fragment xmlns:android="http://schemas.android.com/apk/res/android"-->
+                            <!--xmlns:map="http://schemas.android.com/apk/res-auto"-->
+                            <!--android:name="com.google.android.gms.maps.MapFragment"-->
+                            <!--android:id="@+id/mapaboutusid"-->
+                            <!--android:layout_width="600dp"-->
+                            <!--android:layout_height="250dp" />-->
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:gravity="end"
+                android:text="Regards" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="end"
+                android:textSize="14dp"
+                android:textStyle="bold"
+                android:text="Fratello InnoTech"
+                android:textColor="#ac1c1c" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="end"
+                android:textStyle="bold"
+                android:textSize="14dp"
+                android:text="+91-9010990285"
+                android:textColor="#ac1c1c" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="50dp"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <ImageView
+                    android:id="@+id/acall"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/aboutuscallimage"
+                    android:gravity="center" />
+
+                <ImageView
+                    android:id="@+id/aemail"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/mailimage"
+                    android:gravity="center" />
+
+                <ImageView
+                    android:id="@+id/awebsite"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/aweb"
+                    android:gravity="center" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -29,6 +29,7 @@
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
+
         <activity
             android:name=".MainSurveyActivity"
             android:label="@string/app_name"
@@ -61,10 +62,9 @@
         <activity
             android:name=".NewSurvey.PropertyDetailsActivity"
             android:label="@string/title_activity_signin" />
-        <activity
-            android:name=".AboutUs" />
-        <activity android:name=".UpdateSurvey.MainUpdateActivity"></activity>
-
+        <activity android:name=".AboutUs" />
+        <activity android:name=".UpdateSurvey.MainUpdateActivity" />
+        <activity android:name=".NewSurvey.AboutCompanyActivity"></activity>
     </application>
 
 </manifest>

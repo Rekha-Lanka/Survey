@@ -94,7 +94,7 @@ public class MainUpdateActivity extends AppCompatActivity {
             String loginuname = sharedpref1.getString("username",null);
             String loginmobileno = sharedpref1.getString("mobileno",null);
 
-            String jsonStr = sh.makeServiceCall("http://www.globalm.co.in/survey/getowner.php?id="+uniqueid+"&uname="+loginuname+"&umobile="+loginmobileno);
+            String jsonStr = sh.makeServiceCall("http://www.globalmrbs.com/survey/getowner.php?id="+uniqueid+"&uname="+loginuname+"&umobile="+loginmobileno);
             if (jsonStr != null) {
                 try {
 
@@ -168,7 +168,7 @@ public class MainUpdateActivity extends AppCompatActivity {
             String loginuname = sharedpref1.getString("username",null);
             String loginmobileno = sharedpref1.getString("mobileno",null);
 
-            String jsonStr = sh.makeServiceCall("http://www.globalm.co.in/survey/getincompleteids.php?uname="+loginuname+"&umobile="+loginmobileno);
+            String jsonStr = sh.makeServiceCall("http://www.globalmrbs.com/survey/getincompleteids.php?uname="+loginuname+"&umobile="+loginmobileno);
             if (jsonStr != null) {
                 try {
 

@@ -49,7 +49,7 @@ public class PropertyDetailsActivity extends AppCompatActivity implements Locati
     SharedPreferences pref;
     Handler h = new Handler();
     RequestHandler rh = new RequestHandler();
-    public static final String UPLOAD_URL = "http://www.globalm.co.in/survey/insertproperty.php";
+    public static final String UPLOAD_URL = "http://www.globalmrbs.com/survey/insertproperty.php";
     int delay =500; //1 second=1000 milisecond, 15*1000=15seconds
     Runnable runnable;
     public static final String PNATURE_KEY = "pnature";

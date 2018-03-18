@@ -63,7 +63,7 @@ public class SubmitDetailsActivity extends AppCompatActivity {
     int flag=0;
     LinearLayout imagell;
     Bitmap bm,bm2,bm1;
-    public static final String UPLOAD_URL = "http://www.globalm.co.in/survey/insertfinal.php";
+    public static final String UPLOAD_URL = "http://www.globalmrbs.com/survey/insertfinal.php";
 
     public static final String SAWER_KEY = "sawer";
     public static final String KITCHEN_KEY = "kitch";

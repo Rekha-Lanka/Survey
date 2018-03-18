@@ -33,7 +33,7 @@ public class ConnectionDetailsActivity extends AppCompatActivity {
     SharedPreferences pref;
     Handler h = new Handler();
     RequestHandler rh = new RequestHandler();
-    public static final String UPLOAD_URL = "http://www.globalm.co.in/survey/insertwater.php";
+    public static final String UPLOAD_URL = "http://www.globalmrbs.com/survey/insertwater.php";
 
     public static final String WATERSRC_KEY = "watersrc";
     public static final String DJBSTATUS_KEY = "djbstat";

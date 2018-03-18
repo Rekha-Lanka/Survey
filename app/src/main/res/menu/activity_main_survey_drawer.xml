@@ -16,6 +16,10 @@
             android:id="@+id/nav_logout"
             android:icon="@drawable/logout"
             android:title="Logout" />
+        <item
+            android:id="@+id/nav_company"
+            android:icon="@drawable/aboutus"
+            android:title="About Company" />
 
     </group>
 

@@ -29,6 +29,7 @@ import android.widget.Toast;
 
 import com.delhijal.survey.Network.ConnectivityReceiver;
 import com.delhijal.survey.Network.MyApplication;
+import com.delhijal.survey.NewSurvey.AboutCompanyActivity;
 import com.delhijal.survey.NewSurvey.PersonDetailsActivity;
 import com.delhijal.survey.UpdateSurvey.MainUpdateActivity;
 import com.delhijal.survey.Utils.NetworkChangeReceiver;
@@ -47,7 +48,7 @@ public class MainSurveyActivity extends AppCompatActivity
     TextView uname,mobileno,today,total;
     private ArrayList<String> counts = new ArrayList<String>();
     RequestHandler rh = new RequestHandler();
-    public static final String UPLOAD_URL = "http://www.globalm.co.in/survey/insertsurvey.php";
+    public static final String UPLOAD_URL = "http://www.globalmrbs.com/survey/insertsurvey.php";
     public static final String TOTAL_KEY = "total";
     public static final String CURRENT_KEY = "current";
 
@@ -147,6 +148,9 @@ public class MainSurveyActivity extends AppCompatActivity
             getApplicationContext().getSharedPreferences("userdetails", 0).edit().clear().commit();
             startActivity(i);
 
+        }else if(id==R.id.nav_company){
+            Intent i=new Intent(MainSurveyActivity.this,AboutCompanyActivity.class);
+            startActivity(i);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -190,7 +194,7 @@ public class MainSurveyActivity extends AppCompatActivity
 
             // Making a request to url and getting response
 
-        String jsonStr = sh.makeServiceCall("http://www.globalm.co.in/survey/getnosurveys.php");
+        String jsonStr = sh.makeServiceCall("http://www.globalmrbs.com/survey/getnosurveys.php");
 
         if (jsonStr != null) {
             try {
