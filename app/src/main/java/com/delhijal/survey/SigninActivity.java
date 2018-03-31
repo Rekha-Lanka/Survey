@@ -36,8 +36,8 @@ public class SigninActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                // tv.setText("");
-                uname=etuname.getText().toString();
-                mobileno=etmobileno.getText().toString();
+                uname=etuname.getText().toString().trim();
+                mobileno=etmobileno.getText().toString().trim();
                 if(uname.equals("")||uname.length()<3){
                     etuname.setError("Enter min 3 chars username");
                     etuname.setFocusable(true);

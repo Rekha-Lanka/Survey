@@ -109,10 +109,18 @@ public class MainUpdateActivity extends AppCompatActivity {
                         String ownerfather = d.getString("father");
                         String owneremail=d.getString("email");
                         String ownermobile=d.getString("mobile");
+                        String status=d.getString("status");
+                        String status2=d.getString("status2");
+                        String status3=d.getString("status3");
+                        String status4=d.getString("status4");
                         counts.add(ownername);
                         counts.add(ownerfather);
                         counts.add(ownermobile);
                         counts.add(owneremail);
+                        counts.add(status);
+                        counts.add(status2);
+                        counts.add(status3);
+                        counts.add(status4);
 
 
                     }
@@ -137,6 +145,10 @@ public class MainUpdateActivity extends AppCompatActivity {
             editor.putString("pfathername",ss.get(1));
             editor.putString("mobilenumber",ss.get(2));
             editor.putString("personemail",ss.get(3));
+                editor.putString("personstatus", ss.get(4));
+                editor.putString("personstatus2", ss.get(5));
+                editor.putString("personstatus3", ss.get(6));
+                editor.putString("personstatus4", ss.get(7));
              editor.commit();
             Intent i=new Intent(MainUpdateActivity.this, OwnerDetailsActivity.class);
             startActivity(i);

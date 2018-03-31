@@ -44,7 +44,7 @@ public class PropertyDetailsActivity extends AppCompatActivity implements Locati
    EditText etdno,etfloorno,etpropertyname,etstreet,etarea,etlandmark,etpin;
     Spinner propertyspinner,businessspinner,recordspinner;
    String dno,floorno,propertyname,street,area,landmark,pin,location,propertynature,busnature,record;
-   TextView locationtv;
+   TextView locationtv,status3text;
     LocationManager locationManager;
     SharedPreferences pref;
     Handler h = new Handler();
@@ -52,6 +52,7 @@ public class PropertyDetailsActivity extends AppCompatActivity implements Locati
     public static final String UPLOAD_URL = "http://www.globalmrbs.com/survey/insertproperty.php";
     int delay =500; //1 second=1000 milisecond, 15*1000=15seconds
     Runnable runnable;
+    SharedPreferences sharedPreferences;
     public static final String PNATURE_KEY = "pnature";
     public static final String BNATURE_KEY = "bnature";
     public static final String ADDRESS_KEY = "paddr";
@@ -82,12 +83,22 @@ public class PropertyDetailsActivity extends AppCompatActivity implements Locati
         pnext=(Button)findViewById(R.id.pnext);
         psubmit=(Button)findViewById(R.id.psubmit);
         pprevious=(Button)findViewById(R.id.pprevious);
+        status3text=findViewById(R.id.status3text);
 
         if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION}, 101);
 
         }
         getLocation();
+        sharedPreferences = getSharedPreferences("persondetails",MODE_PRIVATE);
+        final String status3 = sharedPreferences.getString("personstatus3",null);
+        if(status3!=null) {
+            if (status3.equalsIgnoreCase("completed")) {
+                psubmit.setEnabled(false);
+                status3text.setText(status3);
+
+            }
+        }
         pnext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

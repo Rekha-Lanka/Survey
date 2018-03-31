@@ -38,6 +38,7 @@ Button onext,osubmit,oprevious;
 String oname,ofname,omobileno,oemail,catogery;
 EditText etoname,etofname,etomobileno,etoemail;
 SharedPreferences sharedPreferences;
+TextView status2text;
 Spinner spinnerDetails;
 boolean is_mob_number=false;
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
@@ -52,7 +53,7 @@ boolean is_mob_number=false;
     public static final String MyPREFERENCES = "MyPre" ;//file name
     SharedPreferences personpref;
     SharedPreferences.Editor editor;
-    public static final String UPLOAD_URL = "http://www.globalmrbs.com/survey/insertowner.php";
+    public static final String UPLOAD_URL = "http://www.globalmrbs.comj/survey/insertowner.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,13 +67,22 @@ boolean is_mob_number=false;
        onext=(Button)findViewById(R.id.onext);
        osubmit=(Button)findViewById(R.id.osubmit);
        oprevious=(Button)findViewById(R.id.oprevious);
+       status2text=findViewById(R.id.status2text);
 
         sharedPreferences = getSharedPreferences("persondetails",MODE_PRIVATE);
         final String ownername = sharedPreferences.getString("personname",null);
         final String ownerfname = sharedPreferences.getString("pfathername",null);
         final String ownermno = sharedPreferences.getString("mobilenumber",null);
         final String owneremail = sharedPreferences.getString("personemail",null);
+        final String status2 = sharedPreferences.getString("personstatus2",null);
 
+       if(status2!=null) {
+           if (status2.equalsIgnoreCase("completed")) {
+               osubmit.setEnabled(false);
+               status2text.setText(status2);
+
+           }
+       }
         spinnerDetails.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

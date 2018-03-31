@@ -48,6 +48,8 @@ public class ConnectionDetailsActivity extends AppCompatActivity {
     public static final String BOREWELLS_KEY = "borewells";
     public static final String SWERAGEPAID_KEY = "sweragepaid";
     public static final String UPLOAD_KEY = "id";
+    SharedPreferences sharedPreferences;
+    TextView status4text;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +73,17 @@ public class ConnectionDetailsActivity extends AppCompatActivity {
         djbspinner=(Spinner) findViewById(R.id.djbspinner);
         chargespinner=(Spinner) findViewById(R.id.spinnercharge);
         billspinner=(Spinner)findViewById(R.id.billdelvryspinner);
+        status4text=findViewById(R.id.status4text);
 
+        sharedPreferences = getSharedPreferences("persondetails",MODE_PRIVATE);
+        final String status4 = sharedPreferences.getString("personstatus4",null);
+        if(status4!=null) {
+            if (status4.equalsIgnoreCase("completed")) {
+                csubmit.setEnabled(false);
+                status4text.setText(status4);
+
+            }
+        }
 
         cnext.setOnClickListener(new View.OnClickListener() {
             @Override

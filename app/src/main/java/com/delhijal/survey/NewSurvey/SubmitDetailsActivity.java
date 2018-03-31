@@ -72,6 +72,8 @@ public class SubmitDetailsActivity extends AppCompatActivity {
     public static final String NAMEPLATEIMG_KEY = "nameplateimg";
     public static final String METERIMG_KEY = "meterimg";
     public static final String UPLOAD_KEY = "id";
+    SharedPreferences sharedPreferences;
+    TextView statustext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +90,17 @@ public class SubmitDetailsActivity extends AppCompatActivity {
         imagell=(LinearLayout)findViewById(R.id.imagegalleryll);
         meterbtn=(Button)findViewById(R.id.meterbtn);
         meterpreview=(ImageView)findViewById(R.id.meterpreview);
+        statustext=findViewById(R.id.statustext);
+
+        sharedPreferences = getSharedPreferences("persondetails",MODE_PRIVATE);
+        final String status = sharedPreferences.getString("personstatus",null);
+        if(status!=null) {
+            if (status.equalsIgnoreCase("completed")) {
+                submit.setEnabled(false);
+                statustext.setText(status);
+
+            }
+        }
         sprevious.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
