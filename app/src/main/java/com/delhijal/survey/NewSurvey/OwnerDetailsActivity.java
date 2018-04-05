@@ -53,7 +53,7 @@ boolean is_mob_number=false;
     public static final String MyPREFERENCES = "MyPre" ;//file name
     SharedPreferences personpref;
     SharedPreferences.Editor editor;
-    public static final String UPLOAD_URL = "http://www.globalmrbs.comj/survey/insertowner.php";
+    public static final String UPLOAD_URL = "http://www.globalmrbs.com/survey/insertowner.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,7 +79,8 @@ boolean is_mob_number=false;
        if(status2!=null) {
            if (status2.equalsIgnoreCase("completed")) {
                osubmit.setEnabled(false);
-               status2text.setText(status2);
+               osubmit.setBackgroundColor(Color.GRAY);
+               status2text.setText("Already Owner Details Submitted");
 
            }
        }

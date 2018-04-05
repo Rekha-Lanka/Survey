@@ -97,7 +97,9 @@ public class SubmitDetailsActivity extends AppCompatActivity {
         if(status!=null) {
             if (status.equalsIgnoreCase("completed")) {
                 submit.setEnabled(false);
-                statustext.setText(status);
+                submit.setBackgroundColor(Color.GRAY);
+
+                statustext.setText("Already Details Submitted");
 
             }
         }

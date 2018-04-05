@@ -95,7 +95,9 @@ public class PropertyDetailsActivity extends AppCompatActivity implements Locati
         if(status3!=null) {
             if (status3.equalsIgnoreCase("completed")) {
                 psubmit.setEnabled(false);
-                status3text.setText(status3);
+                psubmit.setBackgroundColor(Color.GRAY);
+
+                status3text.setText("Already Property Details Submitted");
 
             }
         }

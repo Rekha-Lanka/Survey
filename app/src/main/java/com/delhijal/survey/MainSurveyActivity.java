@@ -176,7 +176,7 @@ public class MainSurveyActivity extends AppCompatActivity
 
         protected void onPreExecute () {
             super.onPreExecute();
-            loading = ProgressDialog.show(MainSurveyActivity.this, "Uploading...", null,true,true);
+            loading = ProgressDialog.show(MainSurveyActivity.this, "Updating...", null,true,true);
             checkConnection();
             if(ConnectivityReceiver.isConnected()==false) {
                 loading.dismiss();

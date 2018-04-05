@@ -80,7 +80,9 @@ public class ConnectionDetailsActivity extends AppCompatActivity {
         if(status4!=null) {
             if (status4.equalsIgnoreCase("completed")) {
                 csubmit.setEnabled(false);
-                status4text.setText(status4);
+                csubmit.setBackgroundColor(Color.GRAY);
+
+                status4text.setText("Already Water Details Submitted");
 
             }
         }
